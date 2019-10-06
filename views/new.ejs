@@ -1,0 +1,16 @@
+<% include partials/header%>
+
+
+<h1>Create a New Profile</h1>
+<form action="/userprofiles" method="POST">
+    
+    
+    <input type="text" name="name" placeholder="name">
+    <input type="text" name="image"  placeholder="image url">
+    <button>
+        Create
+    </button>
+    
+</form>
+<a href="/userprofiles"> Go Back</a>
+<% include partials/footer %>

@@ -1,0 +1,19 @@
+<% include partials/header%>
+
+
+
+<h1>This is the user page</h1>
+<a href="/userprofiles/new"> Create New User</a>
+<%user.forEach(function(user){%>
+
+<div>
+    <h4><%=user.name%> 
+   </h4>
+    
+    <img src="<%=user.image%>">
+</div>
+    
+    
+<% });%>
+
+<% include partials/footer %>
