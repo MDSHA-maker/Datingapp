@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/MDSHA-maker/Datingapp/issues"
   },
-  "homepage": "https://github.com/MDSHA-maker/Datingapp#readme"
+  "homepage": "https://github.com/MDSHA-maker/Datingapp#readme",
+  "dependencies": {
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "request": "^2.88.0",
+    "response": "^0.18.0"
+  }
 }
