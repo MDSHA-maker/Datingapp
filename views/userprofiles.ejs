@@ -1,19 +1,42 @@
 <% include partials/header%>
 
 
+<div class="container">
 
-<h1>This is the user page</h1>
-<a href="/userprofiles/new"> Create New User</a>
-<%user.forEach(function(user){%>
+    <header class="jumbotron">
+        <div class="container">
+    <h1>Welcome User</h1>
+     <p>
+         View available options in your area
+     </p>      
+     <p>
+             
+    <a class="btn btn-primary btn-large" href="/userprofiles/new"> Create New User</a>
+         
+     </p>
+     </div>
+    </header>
+    <div class="row text-center" style="display:flex; flex-wrap:wrap;">
+          
+        <%user.forEach(function(user){%>
+                
+                <div class="col-md-12 ">
+                    <div class="thumbnail">
+                        
+                         <img src="<%=user.image%>">
+                    </div>
+                    <div class="caption">
+                    <h3> <%=user.name%> </h3>
+                       </div>
+                </div>
+                    
+                    
+                <% });%>
+      
+    </div>
 
-<div>
-    <h4><%=user.name%> 
-   </h4>
     
-    <img src="<%=user.image%>">
-</div>
+    </div>
+    <% include partials/footer %>
     
     
-<% });%>
-
-<% include partials/footer %>
