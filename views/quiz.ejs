@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>EliteConsorts Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Barlow:300,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="/stylesheet/main.css" />
+</head>
+<body>
+    <header class='js-header'>
+        <h1>Elite Consort Quiz</h1>
+        <p>A 7-question multiple-choice quiz to test you.</p>
+    </header>
+
+    <div class='js-start-box start-box'>
+        <h3>Ready to test your knowledge?</h3>
+        <button class="js-start-quiz">Start Quiz</button>
+    </div>
+     <div class='return-box'>
+      
+        <button id="return">Go Back</button>
+    </div>
+
+    <form action="" class='js-form'></form>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script>
+        
+const quizQuestions = [
+    {
+        question: 'Features of Sugar Daddy?',
+        options: ['Very successful entrepreneur', 'experienced and responsible', 'who already know what they want','all of the above'],
+        answer: 'all of the above',
+    },
+    {
+        question: 'What is the backbone of Elite Consorts?',
+        options: ['Modern Gentleman', 'Casual Men', 'Rich Men', 'None of above'],
+        answer: 'Modern Gentleman'
+    },
+    {
+        question: 'Features of Sugar Baby',
+        options: ['Attractive young people ', 'Cherish High Class Lifestyle', 'Ambitous','a+b'],
+        answer: 'a+b'
+    },
+    {
+        question:'How can EliteConsorts.com help Sugar Daddies?',
+        options: ['Give advice','Find the right Sugar Baby','Get richer','all of the above'],
+        answer: 'Find the right Sugar Baby'
+    },
+    {
+        question: 'A Sugar Daddy/Mommy has?',
+        options: ['Ample Time', 'Enough Wealth', 'Hectic work schedule', 'all of the above'],
+        answer: 'all of the above'
+    },
+    {
+        question: 'EliteConsort.com can make Sugar Babies feel-',
+        options: ['Pessimistic', 'Lazy', 'Empowered', 'Clueless'],
+        answer: 'Empowered'
+    },
+    {
+        question: 'A Sugar baby should remain ____ when a Sugar Daddy cannot respond?',
+        options: ['patient', 'tensed', 'unhappy', 'rude'],
+        answer: 'patient'
+    }
+]
+
+let questionCount = 1;
+let scoreCount = 0;
+
+function getQuizReady() {
+    renderScoreCounter();
+    $('.js-start-box').empty();
+    loadQuestion(questionCount);
+}
+
+function startQuiz() {
+    //when 'start quiz' is clicked,
+    //run another function to get first question
+    $('.js-start-quiz').on('click', function () {
+        event.preventDefault();
+        handleAnswerSubmitted();
+        getQuizReady();
+    });
+}
+
+function renderScoreCounter() {
+    if (questionCount === 1) {
+        $('.js-header').find('p').remove();
+    }
+    $('.js-header').find('ul').remove();
+    $('.js-header').append(`
+        <ul>
+            <li>Score: ${scoreCount}</li>
+            <li>Question: ${questionCount}/7</li>
+        </ul>`);
+}
+
+function generateQuestionElement(questionCount) {
+    let questionArrNum = questionCount - 1;
+    return `
+        <fieldset role='radiogroup'>
+            <legend>Question ${questionCount}: ${quizQuestions[questionArrNum].question}</legend>
+            <label for='answer'>
+                <input type="radio" value="${quizQuestions[questionArrNum].options[0]}" name='answer' required>
+                <span>${quizQuestions[questionArrNum].options[0]}</span>
+            </label>
+            <label for='answer'>
+                <input type="radio" value="${quizQuestions[questionArrNum].options[1]}" name='answer' required>
+                <span>${quizQuestions[questionArrNum].options[1]}</span>
+            </label>
+            <label for='answer'>
+                <input type="radio" value="${quizQuestions[questionArrNum].options[2]}" name='answer' required>
+                <span>${quizQuestions[questionArrNum].options[2]}</span>
+            </label>
+            <label for='answer'>
+                <input type="radio" value="${quizQuestions[questionArrNum].options[3]}" name='answer' required>
+                <span>${quizQuestions[questionArrNum].options[3]}</span>
+            </label>
+            <button type="submit" class="js-submit-question">Submit</button>
+        </fieldset>`;
+}
+
+function loadQuestion(questionCount) {
+    $('.js-form').append(generateQuestionElement(questionCount));
+}
+
+$('#return').click(function(){
+    
+     const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = '/groomresult';
+   const hiddenField = document.createElement('input');
+  hiddenField.type='hidden';
+  hiddenField.name='score';
+  hiddenField.value=scoreCount;
+form.appendChild(hiddenField);
+  document.body.appendChild(form);
+  form.submit();
+  
+  
+  //do something
+});
+function handleAnswerSubmitted() {
+    $('.js-form').on('click', '.js-submit-question', function () {
+        event.preventDefault();
+        let selectedAnswer = $("input[name='answer']:checked").val();
+        checkQuestionAnswer(selectedAnswer);
+        renderScoreCounter();
+    });
+}
+
+function checkQuestionAnswer(givenAnswer) {
+    const questionArrNum = questionCount - 1;
+    const correctAnswer = quizQuestions[questionArrNum].answer;
+    if (givenAnswer === correctAnswer) {
+        displayCorrectAnswer(true);
+    } else {
+        displayCorrectAnswer(false, correctAnswer);
+    }
+}
+
+function displayCorrectAnswer(isCorrect, correctAnswer) {
+    $('.js-form').empty();
+    $('.js-start-box').empty();
+    if(isCorrect) {
+        $('.js-start-box').append('<div class="correct-answer"><h3>You\'re a genius! That was right! :)</h3></div>');
+        scoreCount++;
+    } else {
+        $('.js-start-box').append(`<div class="correct-answer"><h3>Sorry, that was wrong :( The correct answer was '${correctAnswer}'</h3></div>`);
+    }
+
+    if(questionCount !== 7){
+        $('.js-start-box').append('<button type="submit" class="js-next-question">Next question</button>');
+    } else {
+        showFinalResults();
+    }
+}
+    
+function nextQuestionClicked() {
+    $('.js-start-box').on('click', '.js-next-question', function () {
+        event.preventDefault();
+        questionCount++;
+        $('.js-start-box').empty();
+        loadQuestion(questionCount);
+    });
+}
+
+function showFinalResults() {
+    let message = '';
+   if (scoreCount >= 5) {
+        message = 'Nice work :)';
+    } else if (scoreCount >= 3 && scoreCount < 5) {
+        message = 'Decent score, I bet you could do better ;)';
+    } else if (scoreCount <= 2) {
+        message = 'Not bad champ! Try taking the quiz again and seeing how you do!';
+    }
+    $('.js-start-box').append(`
+        <h2>You did it! You completed the quiz with a final score of ${scoreCount}</h2>
+        <p>${message}</p>
+        <button type='submit' class='js-reset-button'>Reset button</button>
+    `)
+        document.getElementById('return').style.visibility = 'visible';
+    resetQuiz();
+}
+
+function resetQuiz() {
+    $('.js-form').empty();
+    $('.js-start-box').on('click', '.js-reset-button', function () {
+        questionCount = 1;
+        scoreCount = 0;
+        event.preventDefault;
+        getQuizReady();
+    });
+}
+
+function init() {
+    //call all functions on browser load.
+    document.getElementById('return').style.visibility = 'hidden';
+    startQuiz();
+    nextQuestionClicked();
+}
+
+$(init());
+        
+        
+        
+        
+    </script>
+        <!--<link rel="stylesheet" type="text/css" href="/stylesheet/landing.css">-->
+</body>
+</html>

@@ -1,42 +1,199 @@
-<% include partials/header%>
+<% include partials/header2%>
 
 
-<div class="container">
-
-    <header class="jumbotron">
-        <div class="container">
-    <h1>Welcome User</h1>
-     <p>
-         View available options in your area
-     </p>      
-     <p>
-             
-    <a class="btn btn-primary btn-large" href="/userprofiles/new"> Create New User</a>
-         
-     </p>
-     </div>
-    </header>
-    <div class="row text-center" style="display:flex; flex-wrap:wrap;">
-          
-        <%user.forEach(function(user){%>
-                
-                <div class="col-md-12 ">
-                    <div class="thumbnail">
-                        
-                         <img src="<%=user.image%>">
-                    </div>
-                    <div class="caption">
-                    <h3> <%=user.name%> </h3>
-                       </div>
-                </div>
-                    
-                    
-                <% });%>
-      
-    </div>
+<div>
 
     
+    <header class="jumbotron">
+        <div class="ui container grid">
+    <div class="ten wide row">      
+    <h1>Welcome <span><%=currentuser.name%></span></h1>
+     <div class="container" style="margin:10px 10px 10px 20px">
+      <div>
+        <% if(currentuser.isPremium){ %>
+          <div class="ui container medium header red ">
+             <h2>
+             
+              </h2> 
+          </div>
+            
+        <% } %>
+        <% if(!currentuser.isPremium){ %>
+          <div class="ui container">
+               <a class="ui huge inverted red button" href="/payment" >
+             
+             Upgrade to Premium
+             </a>
+          </div>
+        <% } %>
+      
     </div>
+       <div>
+        <% if(currentuser.isGroomed){ %>
+          <div class="ui container medium header red ">
+              
+              <!--Congrats you received training!!!-->
+              
+          </div>
+            
+        <% } %>
+        <% if(!currentuser.isGroomed){ %>
+          <div class="ui container">
+             <a class="ui huge inverted green button" href="/groom" style="margin:10px 10px 10px 20px">Get Groomed!</a>
+          </div>
+        <% } %>
+      
+    </div>
+            
+        
+     </div>      
+    
+     </div>
+     </div> 
+       
+     <div class="ui container six wide row">
+       <div  style="margin:50px 50px 10px 20px">
+          <span class="ui medium header">
+            Filter by:
+          </span>
+        <form action="/userprofiles/search" method="POST">
+         
+         
+            <select class="ui form-group dropdown" name="gender" placeholder="gender" type="text">
+              <option value="default">Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+                      <option value="Transgender">Transgender</option>
+            </select>
+     
+  
+     
+            <select class="ui form-group dropdown" name="ethnicity" placeholder="ethnicity" type="text">
+              <option value="default">Ethnicity</option>
+              <option value="Asian">Asian</option>
+              <option value="Hispanic">Hispanic</option>
+               <option value="Latina">Latina</option>
+              <option value="Black">Black</option>
+            </select>
+     
+          
+            <select class="ui form-group dropdown" name="age" placeholder="age" type="text">
+              <option value="default">Age</option>
+              <option value=21>Below 21</option>
+              <option value=30>Below 30</option>
+               <option value=35>Below 35</option>
+              <option value=40>Below 40</option>
+            </select>
+               <select class="ui form-group dropdown" name="height" placeholder="height" type="text">
+              <option value="default">Height</option>
+              <option value=160>Above 160cm</option>
+              <option value=165>Above 165cm</option>
+               <option value=170>Above 170cm</option>
+              <option value=180>Above 180cm</option>
+            </select>
+     
+        
+         <button class="ui huge inverted blue button">Apply/Refresh</button>
+         </form>
+     </div>
+    </header>
+</div>
+<div class="ui grid" >
+  
+  <div class="ui sticky six wide column">
+      
+        <img class="ui container fluid image" src="/uploads/<%=currentuser.image[0]%>">  
+        
+       <div class="container" style="margin:10px 10px 10px 10px;" >
+           
+           <div class="ui large header"><%=currentuser.name%></div>
+           <div class="ui medium header">Age: <span><%=currentuser.age%></span></div>
+            <div class="ui medium header">Gender: <span><%=currentuser.gender%></span></div>
+           <div class="ui medium header">Height: <span><%=currentuser.height%></span> cm</div>
+            <div class="ui medium header">Ethnicity: <span ><%=currentuser.ethnicity%></span></div>
+             <div class="ui medium header">Bodytype: <span ><%=currentuser.bodytype%></span></div>
+             
+       </div>
+       <div class="container">
+            <form action="/update/" method="GET">
+         <button type="submit" style="margin:10px 0px auto">Update Info</button>
+      </form>
+          <form action="/uploads/" method="GET">
+         <button type="submit" style="margin:10px 0px auto">See Your Photos</button>
+      </form>
+       </div>
+  </div>
+  <div class="ten wide column">
+            <div class="ui grid" >
+                
+
+         
+            
+                  
+                <%users.forEach(function(user){%>
+                <%if(currentuser.id!=user.id){ %>
+             
+               <%if((criteria.gender=="default"||criteria.gender==user.gender)&&(criteria.ethnicity=="default"||criteria.ethnicity==user.ethnicity)&&(criteria.age=="default"||criteria.age>=user.age)&&(criteria.height=="default"||criteria.height<=user.height)){%>
+                    <div class="five wide column">
+                         <div class="ui card container">
+                             <div class="ui medium fluid rounded image">
+                                 
+                                <svg width="150" height="150">
+                                <image xlink:href="/uploads/<%=user.image[0]%>"  width="100%" height="100%"></image>
+                                </svg>
+                                <div class="ui huge header">
+                                    Age: <span><%=user.age%></span> 
+                                    <div>
+                                    Ethnicity: <span><%=user.ethnicity%></span> 
+                                    </div>
+                                </div>
+                                </div>
+                                   <div>
+                               
+                                <% if(user.isPremium==true){ %>
+                               <i class="red star icon "></i>
+                                <% } %>
+                                 <% if(user.isGroomed==true){ %>
+                               <i class="blue star icon "></i>
+                                <% } %>
+                                    
+                                <% if(currentuser.visited.indexOf(user.id) > -1){ %>
+                               <i class="green tags icon "></i>
+                                <% } %>
+                                </div>
+                            <div class="ui container">
+                            <h3> <%=user.name%> </h3>
+                               </div>
+                               <div class="ui container">
+                             <p>
+                                <% if(currentuser.isPremium==true) {%>
+                                 <a href="/userprofiles/<%=user.id%>" class="btn btn-primary">Connect</a>
+                                 <% } %>
+                             </p>  
+                             </div>
+                        </div>
+                         
+                         </div>
+                            <% } %>
+                            
+                          <% } %>
+          
+                
+                            
+                     <% });%>
+
+                
+            </div>
+  
+  
+  
+  </div>
+
+</div>
+
+
+</div>
+
     <% include partials/footer %>
     
     

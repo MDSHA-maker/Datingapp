@@ -1,0 +1,44 @@
+body {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    margin: auto;
+    max-width: 425px;
+}
+
+h1 {
+    font-weight: 900;
+    font-size: xx-large;
+}
+
+h2, h3, h4, h5, h6 {
+    font-weight: 500;
+     font-size: xx-large;
+}
+
+header {
+    margin-top: 25px;
+    text-align: center;
+     font-size: xx-large;
+}
+
+header ul {
+    padding: 0;
+    text-align: center;
+     font-size: xx-large;
+}
+
+header ul li {
+    display: inline-block;
+    margin: 0 10px;
+     font-size: xx-large;
+}
+
+.start-box {
+    text-align: center;
+     font-size: xx-large;
+}
+
+form fieldset {
+    display: flex;
+     font-size: xx-large;
+}
