@@ -38,7 +38,15 @@ conn.once('open', () => {
   gfs = Grid(conn.db, mongoose.mongo);
   gfs.collection('uploads');
 });*/
-mongoose.connect("mongodb://localhost:27017/dateapp", {useNewUrlParser: true})
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://SHAHRUL:h29vkn$9AV@KUyu@cluster0-qhhoq.mongodb.net/test?retryWrites=true&w=majority";
+const mongoose = new MongoClient(uri, { useNewUrlParser: true });
+mongoose.connect(err => {
+  const collection = mongoose.db("dateapp").collection("devices");
+  // perform actions on the collection object
+  mongoose.close();
+});
+//mongoose.connect("mongodb://localhost:27017/dateapp", {useNewUrlParser: true})
 require('./config/passport')(passport);
 const {ensureAuthenticated}=require('./config/keys');
 app.use(bodyparser.urlencoded({extended:true}));
