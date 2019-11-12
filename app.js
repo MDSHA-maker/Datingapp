@@ -38,7 +38,6 @@ conn.once('open', () => {
   gfs = Grid(conn.db, mongoose.mongo);
   gfs.collection('uploads');
 });*/
-
 mongoose.connect("mongodb://localhost:27017/dateapp", {useNewUrlParser: true})
 require('./config/passport')(passport);
 const {ensureAuthenticated}=require('./config/keys');
