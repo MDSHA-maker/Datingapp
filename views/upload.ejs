@@ -16,7 +16,7 @@
       </div>
     
       <div class="file-path-wrapper">
-        <input class="file-path validate" type="text">
+        <input class="file-path validate" type="text" hidden>
       </div>
     </div>
     
@@ -27,12 +27,6 @@
   </form>
         
   
-        
-            
-            
-            
-            
-            
             
         </div>
         
@@ -54,7 +48,7 @@
       </div>
     
       <div class="file-path-wrapper">
-        <input class="file-path validate" type="text">
+        <input class="file-path validate" type="text" hidden>
       </div>
     </div>
     
@@ -83,23 +77,23 @@
         
         </div>
         
-  <script
-  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-  crossorigin="anonymous"></script>  
-  
-  
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-            
-   
-    <script>
-        window.onhashchange = function() {
-    if (window.innerDocClick) {
-        //Your own in-page mechanism triggered the hash change
-    } else {
-        window.location.href='/userprofiles'//Browser back button was clicked
-    }
-}
-    </script>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+        
+<script>
+var count = 0; // needed for safari
+window.onload = function () { 
+    if (typeof history.pushState === "function") { 
+        history.pushState("back", null, null);          
+        window.onpopstate = function () { 
+            history.pushState('back', null, null);              
+             if(count == 1){window.location = '/userprofiles';}
+            console.log('back')
+         }; 
+     }
+ }  
+setTimeout(function(){count = 1;},200);
+
+</script>
      </body>
 </html>

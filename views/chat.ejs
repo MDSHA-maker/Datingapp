@@ -1,4 +1,5 @@
 <!doctype html>
+<% include partials/header2%>
 <html>
   <head>
     <title>Sample chat</title>
@@ -6,31 +7,45 @@
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; }
       form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form input { border: 0; padding: 10px; width: 80%; margin-right: .5%; }
       form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #video{ background: rgb(0, 0, 0); border: none; padding: 10px;margin: 0px 0px 10px 50px;  }
+      .scrollview{height: 400px;overflow-y: scroll;      }
+         #video2{ background: rgb(0, 0, 0); border: none; padding: 0px; margin: 0px 0px 10px 500px; }
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
+      #videoicon {margin: 0px 0px 0px 10px; }
     </style>
   </head>
-
   <body>
-<h1 id="u"> <%=JSON.stringify(username)%> </h1>
-<h1 id="n"> <%=JSON.stringify(room)%> </h1>
-     
-    <ul id="messages">
+ <div class="videocall">
+  
+  <video autoplay=true id="video" height="400px" width="400px"><%=username%></video>
+  
+  <video autoplay="true" id="video2" height="400px" width="400px"><%=otheruser%></video>
+  <button id="answer" style="display:none">answer</button>
+
+</div>
+<h1 id="u" hidden> <%=JSON.stringify(username)%> </h1>
+<h1 id="n" hidden> <%=JSON.stringify(room)%> </h1>
+ <h1 id="o" hidden> <%=JSON.stringify(otheruser)%> </h1>    
+ <h1 id="j" hidden> <%=JSON.stringify(user)%> </h1>  
+ <div class="scrollview">
+    <ul id="messages" >
        
       
     <%messages.forEach(function(msg){%>
-        <li>
+        <li class="ui large header">
           <span>
-            <%=username%>
+            <%=msg.handle%>
+            <span>:</span>
             
             
           </span>
               <%=msg.message%>  
-               <%=msg.handle%>
-                <%=msg.timestamp%>
+               <!--<%=msg.handle%>-->
+            <div  class="ui tiny header"><p><%=msg.timestamp%></p></div>    
         </li>
      
         
@@ -40,13 +55,93 @@
         
         
     </ul>
+    </div>
     <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
+      <input id="m" autocomplete="off" /><button>Send</button><button id="videoicon" onclick="func()"><i class="video icon"></i></button>
     </form>
+
+<script src="https://unpkg.com/peerjs@1.0.0/dist/peerjs.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
+  // var peer = new Peer('your_peer_id', {host: 'localhost', port: 9000, path: '/peerjs'});
 
+
+  function func(){
+  var name = JSON.parse($('#n').text());
+  var socket = io('',{query: 'room='+name});
+  var user = JSON.parse($('#u').text());
+  var id = JSON.parse($('#j').text());
+    var otheruser = JSON.parse($('#o').text());
+    var call_room = name+otheruser;
+  var vid_room= name+id;
+
+  var video= document.getElementById('video')
+  var video2= document.getElementById('video2')
+  var answer= document.getElementById('answer')
+ 
+ var peer = new Peer(vid_room)
+
+    var conn = peer.connect(call_room);
+    // on open will be launch when you successfully connect to PeerServer
+    conn.on('open', function(err){
+      if (err) console.log(err);
+      // here you have conn.id
+      console.log('made it here');
+      conn.send('hi!');
+    });
+
+    peer.on('connection', function(conn) {
+      conn.on('data', function(data){
+        // Will print 'hi!'
+        console.log(data);
+      });
+    });
+
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+    navigator.getUserMedia({video: true, audio: true}, function(stream) {
+      var call = peer.call(call_room, stream);
+       video.srcObject=stream;
+      call.on('stream', function(remoteStream) {
+        video2.srcObject=remoteStream;
+        
+
+      });
+    }, function(err) {
+      console.log('Failed to get local stream' ,err);
+    });
+
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+    peer.on('call', function(call) {
+      var arr2=['video for', 'room1'];
+      socket.emit('video',arr2);
+
+      socket.on('video',function(vid){
+        answer.style.display="block";
+        answer.onclick=function(){
+
+      navigator.getUserMedia({video: true, audio: true}, function(stream) {
+        call.answer(stream); // Answer the call with an A/V stream.
+          
+        call.on('stream', function(remoteStream) {
+          video.srcObject=remoteStream;
+          
+        });
+      }, function(err) {
+        console.log('Failed to get local stream' ,err);
+      });
+
+    }
+    });
+
+
+
+    });
+
+
+
+
+  }
     $(function () {
        var name = JSON.parse($('#n').text());
       var socket = io('',{query: 'room='+name});
@@ -65,7 +160,13 @@
         return false;
       });
       socket.on('chat message', function(msg){
-        $('#messages').append($('<li>').text(user + ": " + msg +new Date().toLocaleString().split(',').join("")) );
+        // $( "#nm" ).remove();
+        var date=new Date().toLocaleString().split(',').join("");
+        var txt = '<li   class="ui large header">'+ user+  ": " + msg[0] + '<div id="date" class="ui tiny header">'+date + "</div>" +"</li>"
+        console.log(txt);
+        $('#messages').append(txt);
+        // $('#nm').append($('<div id="date" class="ui tiny header">').text();
+        
         console.log("chatuser"+user);
       });
     });

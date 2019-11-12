@@ -92,7 +92,6 @@ var gateway = braintree.connect({
         console.log("Newly created user");
      }
 });*/
-
 //express session
 app.use(session({
   secret: 'secret',
@@ -155,8 +154,18 @@ app.post("/users/login",(req,res,next)=>
   })(req, res, next); 
 });
 
+        
+    
 
-
+    // users.find({"name":req.body.name,"email":req.body.email,"password":req.body.password,"gender":req.body.gender,"bodytype":req.body.bodytype,"age":req.body.age,"ethnicity":req.body.ethnicity,"height":req.body.height,"zipcode":req.body.zipcode},function(err,obj) { 
+    //     console.log("found")
+    //     console.log(obj); });
+    
+    
+    
+    
+    
+    
 
 //updateing serach
 app.post("/userprofiles/search",function(req,res){
@@ -242,6 +251,143 @@ app.get("/userprofiles",ensureAuthenticated,function(req,res){
  
    
 });
+
+
+
+
+
+
+
+
+
+
+
+
+//forgot password
+app.get("/forgotpassword",(req,res)=>{
+    
+    res.render("forgot");
+    
+    
+});
+//passwordupdate
+app.post("/newpassword",(req,res)=>
+{
+     var name=req.body.name;
+   var image=req.body.image;
+   var email=req.body.email;
+   var age=req.body.age;
+   var password=req.body.password;
+   var password2=req.body.password2;
+   var gender=req.body.gender;
+   var ethnicity=req.body.ethnicity;
+   var height=req.body.height;
+   var zipcode=req.body.zipcode;
+    var bodytype=req.body.bodytype;
+   var errors=[];
+ //console.log(req.body);
+   if(!name||!email||!password||!password2)
+   {
+      errors.push({msg:'Please fill in all fields'});
+      
+      
+   }
+   if(password!=password2)
+   {
+      errors.push({msg:'Passwords do not match'});
+      
+      
+   }
+   if(password<8){
+      errors.push({msg:"Passwords must be greater than 6 characters"});
+      
+   }
+   if(errors.length>0){
+      
+      res.render('/forgot',{
+         errors:errors
+         
+      });
+   }
+
+    else{//console.log(req.body);
+    users.find( {
+    $and : [
+          { name : name }, { email: email },{age:age },{gender:gender},{ethnicity:ethnicity},{height:height},{zipcode:zipcode},{bodytype:bodytype}] },(err,found)=>{
+              if(err) throw err;
+              else{
+                  var newpassword;
+                  console.log(found);
+                     bcrypt.genSalt(10,(err,salt)=>
+                   bcrypt.hash(password,salt,(err,hash)=>
+                     {
+                        if (err) throw err;
+                         
+                        //console.log(hash);
+                        
+                       newpassword=hash;
+                        users.findOneAndUpdate( { "email" : email },{"password":newpassword},{
+                                                                  new: true,
+                                                                  
+                                                                },(err,done)=>{
+                                                                  if (err) throw err;
+                                                                  if(done){
+                                                                      
+                                                                     req.flash('success_msg','Password has been successfully updated!!!');
+                                                              console.log('success_msg');
+                                                              res.redirect("/");
+                                                                  }
+                                                                    
+                                                                });
+                             
+                             
+                        
+                     }));
+                       
+                  
+                      
+                              //  users.findByIdAndUpdate( { "email" : email 
+                  
+                  
+              }
+              
+          
+    }
+    );
+        
+        
+    }
+    
+    
+    
+   } );
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Logouthandle
 app.get('/logout',(req,res)=>
@@ -581,8 +727,8 @@ if (result==''){
           if (err) throw err;
           console.log(messages);
        
-          
-          res.render('chat', {username: currentUsername, user:current_user,room: room, messages:messages });
+          console.log("other user"+oth_user);
+          res.render('chat', {username: currentUsername, user:current_user ,otheruser:oth_user,room: room, messages:messages });
       }
       ) }
 else{
@@ -590,8 +736,8 @@ else{
       soc.getMessage(result[0].name, function(err,messages){
           if (err) throw err;
           console.log(messages);
-          
-          res.render('chat', {username: currentUsername, user:current_user, room:result[0].name, messages:messages });
+          // res.render('chat', {username: currentUsername, otheruser:oth_user,room: room, messages:messages });
+          res.render('chat', {username: currentUsername,user:current_user ,otheruser:oth_user, room:result[0].name, messages:messages });
       }
       )
       
@@ -648,6 +794,19 @@ io.on('connection', function(socket){
   
     console.log('message: ' + msg);
   });
+  
+    socket.on('video', function(msg){
+    socket.join(socket.handshake.query.name,function(err){if (err) console.log(err);else console.log("sucess")});
+    console.log(socket.handshake.query);
+    io.sockets.in(msg[1]).emit('video');
+
+  });
+  
+  
+  
+  
+  
+  
 });
 
 
@@ -695,7 +854,7 @@ app.post('/payment',ensureAuthenticated,function(req,res){
           //  res.send('test');
           // res.send(result);
                    console.log(req.user);
-                  /// res.redirect("/userprofiles");
+               //   res.redirect("/userprofiles");
       //  res.redirect("/blogs/"+req.params.id);
             
         }
