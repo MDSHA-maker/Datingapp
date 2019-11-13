@@ -21,21 +21,25 @@ var conn = mysql.createConnection({
 
 
 
-// conn.connect(function(err) {
-//   if (err) throw err;
-//   console.log("Connected!");
-//   var rm = "CREATE TABLE room (name VARCHAR(255) NOT NULL, user_1 VARCHAR(255) NOT NULL ,user_2 VARCHAR(255) NOT NULL,PRIMARY KEY(name))";
-//   conn.query(rm, function (err, result) {
-//      if (err) throw err;
-//      console.log("room Table created");
-//   });
+conn.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+  var rm = "ALTER TABLE room MODIFY COLUMN timestamp VARCHAR(255)";
+  conn.query(rm, function (err, result) {
+     if (err) throw err;
+     console.log("room Table created");
+  });
 //     var msg = "CREATE TABLE messages (name VARCHAR(255) NOT NULL , message VARCHAR(255) NOT NULL, handle VARCHAR(255)  NOT NULL, timestamp DATE NOT NULL, FOREIGN KEY (name) REFERENCES room(name))";
 //   conn.query(msg, function (err, result) {
 //     if (err) throw err;
 //     console.log("Messages Table created");
 //   });
 
-// });
+});
+
+
+
+
 console.log(conn)
 
 

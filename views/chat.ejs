@@ -24,7 +24,7 @@
   <video autoplay=true id="video" height="400px" width="400px"><%=username%></video>
   
   <video autoplay="true" id="video2" height="400px" width="400px"><%=otheruser%></video>
-  <button id="answer" style="display:none">answer</button>
+  <button id="answer">answer</button>
 
 </div>
 <h1 id="u" hidden> <%=JSON.stringify(username)%> </h1>
@@ -124,7 +124,7 @@
         call.answer(stream); // Answer the call with an A/V stream.
           
         call.on('stream', function(remoteStream) {
-          video.srcObject=remoteStream;
+          video2.srcObject=remoteStream;
           
         });
       }, function(err) {
@@ -162,7 +162,7 @@
       socket.on('chat message', function(msg){
         // $( "#nm" ).remove();
         var date=new Date().toLocaleString().split(',').join("");
-        var txt = '<li   class="ui large header">'+ user+  ": " + msg[0] + '<div id="date" class="ui tiny header">'+date + "</div>" +"</li>"
+        var txt = '<li   class="ui large header">'+ msg[1]+  ": " + msg[0] + '<div id="date" class="ui tiny header">'+date + "</div>" +"</li>"
         console.log(txt);
         $('#messages').append(txt);
         // $('#nm').append($('<div id="date" class="ui tiny header">').text();
