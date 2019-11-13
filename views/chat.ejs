@@ -64,8 +64,11 @@
     <script src="/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
+    var socket = io('',{query: 'room='+name});
   // var peer = new Peer('your_peer_id', {host: 'localhost', port: 9000, path: '/peerjs'});
-
+    socket.on('video', function(msg){
+      videoicon.style.backgroundColor = "red";
+     })
 
   function func(){
     
@@ -91,6 +94,7 @@
       // here you have conn.id
       console.log('made it here');
       conn.send('hi!');
+      
       
       videoicon.style.backgroundColor = "red";
     });
@@ -128,9 +132,7 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
     });
   });
   
-      socket.on('video', function(msg){
-      videoicon.style.backgroundColor = "red";
-     })
+    
      
   }
     $(function () {
