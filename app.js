@@ -807,7 +807,7 @@ io.on('connection', function(socket){
   
     console.log('message: ' + msg);
   });
-  
+  //god
     socket.on('video', function(msg){
     socket.join(socket.handshake.query.name,function(err){if (err) console.log(err);else console.log("sucess")});
     console.log(socket.handshake.query);
