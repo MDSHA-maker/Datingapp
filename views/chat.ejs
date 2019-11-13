@@ -130,6 +130,8 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
       socket.on('video', function(msg){
       videoicon.style.backgroundColor = "red";
      })
+     
+  }
     $(function () {
        var name = JSON.parse($('#n').text());
       var socket = io('',{query: 'room='+name});
