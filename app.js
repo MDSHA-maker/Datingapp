@@ -38,15 +38,20 @@ conn.once('open', () => {
   gfs = Grid(conn.db, mongoose.mongo);
   gfs.collection('uploads');
 });*/
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://SHAHRUL:h29vkn$9AV@KUyu@cluster0-qhhoq.mongodb.net/test?retryWrites=true&w=majority";
-const mongoose = new MongoClient(uri, { useNewUrlParser: true });
-mongoose.connect(err => {
-  const collection = mongoose.db("dateapp").collection("devices");
-  // perform actions on the collection object
-  mongoose.close();
-});
-//mongoose.connect("mongodb://localhost:27017/dateapp", {useNewUrlParser: true})
+// const MongoClient = require('mongodb').MongoClient;
+// const uri = "mongodb+srv://SHAHRUL:h29vkn$9AV@KUyu@cluster0-qhhoq.mongodb.net/test?retryWrites=true&w=majority";
+// const mongoose = new MongoClient(uri);
+// mongoose.connect(err => {
+//     console.log(err);
+//   const collection = mongoose.db("dateapp").collection("devices");
+//   // perform actions on the collection object
+//   mongoose.close();
+// });
+// mongoose.set('useNewUrlParser', true);
+// mongoose.set('useFindAndModify', false);
+// mongoose.set('useCreateIndex', true);
+// mongoose.set('useUnifiedTopology', true);
+mongoose.connect("mongodb://heroku_klswlvgt:uo2tumfdvrqjgpmo8fmh77m8ha@ds053597.mlab.com:53597/heroku_klswlvgt", {useNewUrlParser: true})
 require('./config/passport')(passport);
 const {ensureAuthenticated}=require('./config/keys');
 app.use(bodyparser.urlencoded({extended:true}));
