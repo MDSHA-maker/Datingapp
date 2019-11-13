@@ -106,7 +106,7 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
     video.srcObject=stream;
     call.on('stream', function(remoteStream) {
       
-      videoicon.style.background-color="red";
+      videoicon.style.backgroundColor = "red";
        video2.srcObject=remoteStream;
       
 
@@ -122,7 +122,7 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
       video2.srcObject=stream;
       call.on('stream', function(remoteStream) {
         // answer.style.display="block";
-        videoicon.style.background-color="red";
+        videoicon.style.backgroundColor = "red";
          video.srcObject=remoteStream
     
         // answer.onclick(function(){  video.srcObject=remoteStream;})
