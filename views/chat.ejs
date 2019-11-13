@@ -24,7 +24,7 @@
   <video autoplay=true id="video" height="400px" width="400px"><%=username%></video>
   
   <video autoplay="true" id="video2" height="400px" width="400px"><%=otheruser%></video>
-  <button id="answer">answer</button>
+  <button id="answer" style="display:none">answer</button>
 
 </div>
 <h1 id="u" hidden> <%=JSON.stringify(username)%> </h1>
@@ -79,7 +79,7 @@
   var video= document.getElementById('video')
   var video2= document.getElementById('video2')
   var answer= document.getElementById('answer')
- 
+
  var peer = new Peer(vid_room)
 
     var conn = peer.connect(call_room);
@@ -100,9 +100,11 @@
     
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
   navigator.getUserMedia({video: true, audio: true}, function(stream) {
+    video.srcObject=stream;
     var call = peer.call(call_room, stream);
     call.on('stream', function(remoteStream) {
       video2.srcObject=remoteStream;
+      
 
     });
   }, function(err) {
@@ -114,7 +116,9 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
     navigator.getUserMedia({video: true, audio: true}, function(stream) {
       call.answer(stream); // Answer the call with an A/V stream.
       call.on('stream', function(remoteStream) {
-        video.srcObject=remoteStream;
+        answer.style.display="block";
+        answer.onclick(function(){  video.srcObject=remoteStream;})
+      
        
       });
     }, function(err) {
