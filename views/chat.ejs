@@ -11,7 +11,7 @@
       form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
       #video{ background: rgb(0, 0, 0); border: none; padding: 10px;margin: 0px 0px 10px 50px;  }
       .scrollview{height: 400px;overflow-y: scroll;      }
-         #video2{ background: rgb(0, 0, 0); border: none; padding: 0px; margin: 0px 0px 10px 500px; }
+         #video2{ background: white; border: none; padding: 0px; margin: 0px 0px 10px 500px; }
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
@@ -104,14 +104,9 @@
     
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
   navigator.getUserMedia({video: true, audio: true}, function(stream) {
-   
-    //  videoicon.style.backgroundColor = "red";
     var call = peer.call(call_room, stream);
-    video.srcObject=stream;
     call.on('stream', function(remoteStream) {
-      
-       video2.srcObject=remoteStream;
-      
+      video2.srcObject=remoteStream;
 
     });
   }, function(err) {
@@ -122,23 +117,14 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
   peer.on('call', function(call) {
     navigator.getUserMedia({video: true, audio: true}, function(stream) {
       call.answer(stream); // Answer the call with an A/V stream.
-         // videoicon.style.backgroundColor = "red";
-      video2.srcObject=stream;
       call.on('stream', function(remoteStream) {
-        // answer.style.display="block";
-    
-         video.srcObject=remoteStream
-    
-        // answer.onclick(function(){  video.srcObject=remoteStream;})
-      
+        video.srcObject=remoteStream;
        
       });
     }, function(err) {
       console.log('Failed to get local stream' ,err);
     });
   });
-
-
 
 
   }
