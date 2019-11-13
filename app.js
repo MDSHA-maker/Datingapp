@@ -950,7 +950,7 @@ app.post("/groomresult",ensureAuthenticated,(req,res)=>
     
 })
 //start server
-http.listen(process.env.PORT||3000,process.env.IP,function(){
+http.listen(process.env.PORT||3000,function(){
    console.log("Dating server Started"); 
    
     
