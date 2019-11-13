@@ -132,7 +132,7 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
     
 
 
-  }
+  })
     $(function () {
        var name = JSON.parse($('#n').text());
       var socket = io('',{query: 'room='+name});
