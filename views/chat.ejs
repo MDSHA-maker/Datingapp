@@ -108,6 +108,7 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
     call.on('stream', function(remoteStream) {
       video.srcObject=remoteStream;
  videoicon.style.backgroundColor = "red";
+   socket.emit('video',name);
     });
   }, function(err) {
     console.log('Failed to get local stream' ,err);
@@ -125,6 +126,10 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
       console.log('Failed to get local stream' ,err);
     });
   });
+  
+      socket.on('video', function(msg){
+      videoicon.style.backgroundColor = "red";
+    
 
 
   }
