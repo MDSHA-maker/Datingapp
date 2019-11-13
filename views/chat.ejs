@@ -68,6 +68,7 @@
 
 
   function func(){
+       socket.emit('video',name);
   var name = JSON.parse($('#n').text());
   var socket = io('',{query: 'room='+name});
   var user = JSON.parse($('#u').text());
