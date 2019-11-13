@@ -145,8 +145,8 @@
     $(function () {
        var name = JSON.parse($('#n').text());
       var socket = io('',{query: 'room='+name});
-        var user = JSON.parse($('#u').text());
-          var datetime;
+        var user = JSON.parse($('#u').text());;
+          var datetime
      
       $('form').submit(function(e){
         e.preventDefault(); // prevents page reloading
@@ -162,7 +162,7 @@
       socket.on('chat message', function(msg){
         // $( "#nm" ).remove();
         var date=new Date().toLocaleString().split(',').join("");
-        var txt = '<li   class="ui large header">'+ msg[1]+  ": " + msg[0] + '<div id="date" class="ui tiny header">'+date + "</div>" +"</li>"
+        var txt = '<li   class="ui large header">'+ msg[2]+  ": " + msg[0] + '<div id="date" class="ui tiny header">'+date + "</div>" +"</li>"
         console.log(txt);
         $('#messages').append(txt);
         // $('#nm').append($('<div id="date" class="ui tiny header">').text();
