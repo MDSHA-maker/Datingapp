@@ -97,45 +97,30 @@
         console.log(data);
       });
     });
+    
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+  navigator.getUserMedia({video: true, audio: true}, function(stream) {
+    var call = peer.call(call_room, stream);
+    call.on('stream', function(remoteStream) {
+      video2.srcObject=remoteStream;
 
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+    });
+  }, function(err) {
+    console.log('Failed to get local stream' ,err);
+  });
+
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+  peer.on('call', function(call) {
     navigator.getUserMedia({video: true, audio: true}, function(stream) {
-      var call = peer.call(call_room, stream);
-       video.srcObject=stream;
+      call.answer(stream); // Answer the call with an A/V stream.
       call.on('stream', function(remoteStream) {
-        video2.srcObject=remoteStream;
-        
-
+        video.srcObject=remoteStream;
+       
       });
     }, function(err) {
       console.log('Failed to get local stream' ,err);
     });
-
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-    peer.on('call', function(call) {
-      var arr2=['video for', 'room1'];
-      socket.emit('video',arr2);
-
-      socket.on('video',function(vid){
-        answer.style.display="block";
-        
-
-      navigator.getUserMedia({video: true, audio: true}, function(stream) {
-        call.answer(stream); // Answer the call with an A/V stream.
-          
-        call.on('stream', function(remoteStream) {
-          video2.srcObject=remoteStream;
-          
-        });
-      }, function(err) {
-        console.log('Failed to get local stream' ,err);
-      });
-
-    });
-
-
-
-    });
+  });
 
 
 
