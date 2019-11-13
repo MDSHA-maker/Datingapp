@@ -20,7 +20,7 @@ var conn = mysql.createConnection({
 
 
 
-
+/*
 conn.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
@@ -37,7 +37,7 @@ conn.connect(function(err) {
 
 });
 
-
+*/
 
 
 console.log(conn)
