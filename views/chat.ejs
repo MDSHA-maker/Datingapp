@@ -103,8 +103,11 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
   navigator.getUserMedia({video: true, audio: true}, function(stream) {
    
     var call = peer.call(call_room, stream);
+    video.srcObject=stream;
     call.on('stream', function(remoteStream) {
-      // video2.srcObject=remoteStream;
+      
+      videoicon.style.background-color="red";
+       video2.srcObject=remoteStream;
       
 
     });
@@ -119,7 +122,7 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
       video2.srcObject=stream;
       call.on('stream', function(remoteStream) {
         // answer.style.display="block";
-        videoicon.style.color="red";
+        videoicon.style.background-color="red";
          video.srcObject=remoteStream
     
         // answer.onclick(function(){  video.srcObject=remoteStream;})
