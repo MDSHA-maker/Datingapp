@@ -24,7 +24,7 @@ var conn = mysql.createConnection({
 conn.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
-  var rm = "ALTER TABLE room MODIFY COLUMN timestamp VARCHAR(255)";
+  var rm = "ALTER TABLE messages MODIFY COLUMN timestamp VARCHAR(255)";
   conn.query(rm, function (err, result) {
      if (err) throw err;
      console.log("room Table created");
