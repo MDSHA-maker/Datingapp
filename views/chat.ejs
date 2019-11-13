@@ -106,8 +106,8 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
   navigator.getUserMedia({video: true, audio: true}, function(stream) {
     var call = peer.call(call_room, stream);
     call.on('stream', function(remoteStream) {
-      video2.srcObject=remoteStream;
-
+      video.srcObject=remoteStream;
+ videoicon.style.backgroundColor = "red";
     });
   }, function(err) {
     console.log('Failed to get local stream' ,err);
@@ -119,7 +119,7 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
       call.answer(stream); // Answer the call with an A/V stream.
       call.on('stream', function(remoteStream) {
         video.srcObject=remoteStream;
-       
+        videoicon.style.backgroundColor = "red";
       });
     }, function(err) {
       console.log('Failed to get local stream' ,err);
