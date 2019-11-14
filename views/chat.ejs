@@ -64,11 +64,6 @@
     <script src="/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
-    var socket = io('',{query: 'room='+name});
-  // var peer = new Peer('your_peer_id', {host: 'localhost', port: 9000, path: '/peerjs'});
-    socket.on('video', function(msg){
-      videoicon.style.backgroundColor = "red";
-     })
 
   function func(){
     
@@ -79,7 +74,7 @@
     var otheruser = JSON.parse($('#o').text());
     var call_room = name+otheruser;
   var vid_room= name+id;
-   socket.emit('video',name);
+ 
   var video= document.getElementById('video')
   var video2= document.getElementById('video2')
   var answer= document.getElementById('answer')
@@ -113,7 +108,7 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
     call.on('stream', function(remoteStream) {
       video.srcObject=remoteStream;
  videoicon.style.backgroundColor = "red";
-   socket.emit('video',name);
+   
     });
   }, function(err) {
     console.log('Failed to get local stream' ,err);
