@@ -11,8 +11,8 @@ var pool      =    mysql.createPool({
   password : '8617e451',
   database : 'heroku_5d0cbfe4c266954'
 });
-
- 
+this.mysql= mysql;
+ this.pool = pool;
 
  
 
