@@ -22,7 +22,7 @@ function handle_database(req,res) {
    
     this.pool.getConnection(function(err,connection){
         if (err) {
-          res.json({"code" : 100, "status" : "Error in connection database"});
+          
           return;
         }  
 
@@ -31,12 +31,12 @@ function handle_database(req,res) {
         connection.query("select * from user",function(err,rows){
             connection.release();
             if(!err) {
-                res.json(rows);
+                  
             }          
         });
 
         connection.on('error', function(err) {      
-              res.json({"code" : 100, "status" : "Error in connection database"});
+              
               return;    
         });
   });
@@ -68,7 +68,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
 
    this.pool.getConnection(function(err,connection){
         if (err) {
-          res.json({"code" : 100, "status" : "Error in connection database"});
+          
           return;
         }  
 
@@ -78,7 +78,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
         connection.query(query ,callback)
 
         connection.on('error', function(err) {      
-              res.json({"code" : 100, "status" : "Error in connection database"});
+              
               return;    
         });
   });
@@ -92,7 +92,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
        
     this.pool.getConnection(function(err,connection){
         if (err) {
-          res.json({"code" : 100, "status" : "Error in connection database"});
+          
           return;
         }  
 
@@ -104,7 +104,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
       
 
         connection.on('error', function(err) {      
-              res.json({"code" : 100, "status" : "Error in connection database"});
+              
               return;    
         });
   });
@@ -146,7 +146,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
      room = Math.random().toString(36).substr(2, 100);
          this.pool.getConnection(function(err,connection){
         if (err) {
-          res.json({"code" : 100, "status" : "Error in connection database"});
+          
           return;
         }  
 
@@ -161,7 +161,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
       
 
         connection.on('error', function(err) {      
-              res.json({"code" : 100, "status" : "Error in connection database"});
+              
               return;    
         });
   });
@@ -178,7 +178,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
           
                    this.pool.getConnection(function(err,connection){
         if (err) {
-          res.json({"code" : 100, "status" : "Error in connection database"});
+          
           return;
         }  
 
@@ -190,7 +190,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
       
 
         connection.on('error', function(err) {      
-              res.json({"code" : 100, "status" : "Error in connection database"});
+              
               return;    
         });
   });
