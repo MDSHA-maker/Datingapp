@@ -760,8 +760,7 @@ else{
           console.log(messages);
           // res.render('chat', {username: currentUsername, otheruser:oth_user,room: room, messages:messages });
           res.render('chat', {username: currentUsername,user:current_user ,otheruser:oth_user, room:result[0].name, messages:messages });
-      }
-      )
+      })
       
       
       
@@ -781,7 +780,7 @@ else{
 
 
 
-
+//jjnkn
    
    
 })
