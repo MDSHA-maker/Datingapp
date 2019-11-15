@@ -65,71 +65,71 @@
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
 
-  function func(){
+//   function func(){
     
-  var name = JSON.parse($('#n').text());
-  var socket = io('',{query: 'room='+name});
-  var user = JSON.parse($('#u').text());
-  var id = JSON.parse($('#j').text());
-    var otheruser = JSON.parse($('#o').text());
-    var call_room = name+otheruser;
-  var vid_room= name+id;
+//   var name = JSON.parse($('#n').text());
+//   var socket = io('',{query: 'room='+name});
+//   var user = JSON.parse($('#u').text());
+//   var id = JSON.parse($('#j').text());
+//     var otheruser = JSON.parse($('#o').text());
+//     var call_room = name+otheruser;
+//   var vid_room= name+id;
  
-  var video= document.getElementById('video')
-  var video2= document.getElementById('video2')
-  var answer= document.getElementById('answer')
-    var videoicon= document.getElementById('videoicon')
+//   var video= document.getElementById('video')
+//   var video2= document.getElementById('video2')
+//   var answer= document.getElementById('answer')
+//     var videoicon= document.getElementById('videoicon')
 
- var peer = new Peer(vid_room)
+// var peer = new Peer(vid_room)
 
-    var conn = peer.connect(call_room);
-    // on open will be launch when you successfully connect to PeerServer
-    conn.on('open', function(err){
-      if (err) console.log(err);
-      // here you have conn.id
-      console.log('made it here');
-      conn.send('hi!');
+//     var conn = peer.connect(call_room);
+//     // on open will be launch when you successfully connect to PeerServer
+//     conn.on('open', function(err){
+//       if (err) console.log(err);
+//       // here you have conn.id
+//       console.log('made it here');
+//       conn.send('hi!');
       
       
-      videoicon.style.backgroundColor = "red";
-    });
+//       videoicon.style.backgroundColor = "red";
+//     });
 
-    peer.on('connection', function(conn) {
-      conn.on('data', function(data){
-        // Will print 'hi!'
-            videoicon.style.backgroundColor = "red";
-        console.log(data);
-      });
-    });
+//     peer.on('connection', function(conn) {
+//       conn.on('data', function(data){
+//         // Will print 'hi!'
+//             videoicon.style.backgroundColor = "red";
+//         console.log(data);
+//       });
+//     });
     
-navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-  navigator.getUserMedia({video: true, audio: true}, function(stream) {
-    var call = peer.call(call_room, stream);
-    call.on('stream', function(remoteStream) {
-      video.srcObject=remoteStream;
- videoicon.style.backgroundColor = "red";
+// navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+//   navigator.getUserMedia({video: true, audio: true}, function(stream) {
+//     var call = peer.call(call_room, stream);
+//     call.on('stream', function(remoteStream) {
+//       video.srcObject=remoteStream;
+// videoicon.style.backgroundColor = "red";
    
-    });
-  }, function(err) {
-    console.log('Failed to get local stream' ,err);
-  });
+//     });
+//   }, function(err) {
+//     console.log('Failed to get local stream' ,err);
+//   });
 
-  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-  peer.on('call', function(call) {
-    navigator.getUserMedia({video: true, audio: true}, function(stream) {
-      call.answer(stream); // Answer the call with an A/V stream.
-      call.on('stream', function(remoteStream) {
-        video.srcObject=remoteStream;
-        videoicon.style.backgroundColor = "red";
-      });
-    }, function(err) {
-      console.log('Failed to get local stream' ,err);
-    });
-  });
+//   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+//   peer.on('call', function(call) {
+//     navigator.getUserMedia({video: true, audio: true}, function(stream) {
+//       call.answer(stream); // Answer the call with an A/V stream.
+//       call.on('stream', function(remoteStream) {
+//         video.srcObject=remoteStream;
+//         videoicon.style.backgroundColor = "red";
+//       });
+//     }, function(err) {
+//       console.log('Failed to get local stream' ,err);
+//     });
+//   });
   
   
      
-  }
+  // }
     $(function () {
        var name = JSON.parse($('#n').text());
       var socket = io('',{query: 'room='+name});
