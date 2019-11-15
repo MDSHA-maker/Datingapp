@@ -735,11 +735,13 @@ soc.handleDisconnect();
 throw err;
 }
 var resultnew;
-console.log("The result is: " +result);
+
 if (result==''){
     
-     room= soc.createRoom(current_user,oth_user)
-     console.log(room);
+      soc.createRoom(current_user,oth_user)
+     
+     soc.getRoom(current_user,oth_user,function(err, result) {
+     
         
       soc.getMessage(room, function(err,messages){
           if (err){
@@ -749,9 +751,13 @@ if (result==''){
           console.log(messages);
        
           console.log("other user"+oth_user);
-          res.render('chat', {username: currentUsername, user:current_user ,otheruser:oth_user,room: room, messages:messages });
+          res.render('chat', {username: currentUsername, user:current_user ,otheruser:oth_user,room: result[0].name, messages:messages });
       }
-      ) }
+      )
+      
+     })
+         
+     }
 else{
       
       soc.getMessage(result[0].name, function(err,messages){
