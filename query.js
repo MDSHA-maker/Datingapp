@@ -169,10 +169,10 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
               return;    
         });
         console.log("room is now:" + rm)
-        return rm;
+
   });
 
-         
+          return rm;         
 
       
     };
