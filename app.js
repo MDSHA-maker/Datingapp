@@ -743,7 +743,7 @@ if (result==''){
      soc.getRoom(current_user,oth_user,function(err, result) {
      
         
-      soc.getMessage(room, function(err,messages){
+      soc.getMessage(result[0].name, function(err,messages){
           if (err){
               console.log('error for creating room');
               soc.handleDisconnect();
