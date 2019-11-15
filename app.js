@@ -741,7 +741,10 @@ if (result==''){
      room= soc.createRoom(current_user,oth_user)
    //  console.log(room);
       soc.getMessage(room, function(err,messages){
-          if (err) throw err;
+          if (err){
+              
+              soc.handleDisconnect();
+          }
           console.log(messages);
        
           console.log("other user"+oth_user);
@@ -751,7 +754,9 @@ if (result==''){
 else{
       
       soc.getMessage(result[0].name, function(err,messages){
-          if (err) throw err;
+          if (err){
+              soc.handleDisconnect();
+          }
           console.log(messages);
           // res.render('chat', {username: currentUsername, otheruser:oth_user,room: room, messages:messages });
           res.render('chat', {username: currentUsername,user:current_user ,otheruser:oth_user, room:result[0].name, messages:messages });
@@ -803,6 +808,7 @@ io.on('connection', function(socket){
    
     io.sockets.in([msg[1]]).emit('chat message', msg);
     soc.addMessage(msg[1], msg[0],msg[2],msg[3] ,function(err,result){
+        soc.handleDisconnect();
        if (err) {throw err}
        else{console.log(msg[0] + 'is being save to database');};
        
