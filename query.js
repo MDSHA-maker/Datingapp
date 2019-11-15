@@ -24,6 +24,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
    console.log("Connected!"+date);
     var query = "INSERT INTO messages (name,message,handle,timestamp) VALUES( " + mysql.escape(room) + ","+ mysql.escape(message) +"," + mysql.escape(handle) + "," + mysql.escape(date)+" )" ;
     con.query(query ,callback)
+    con.end();
 };
 
 
@@ -34,6 +35,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
       console.log("Connected!");
       var query = "SELECT message,handle,timestamp FROM messages WHERE name=" + mysql.escape(room);
       con.query(query, callback)
+      con.end();
 
 
 
@@ -47,6 +49,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
       console.log("Connected!");
          var query = "SELECT name FROM room WHERE user_1 IN (" + mysql.escape(user_1)+ ") OR user_2 IN (" +  mysql.escape(user_1)+ ")";
       con.query(query, callback)
+      con.end();
 
 
 
@@ -70,6 +73,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
         
         con.query(query,callback)
            return room;
+           con.end();
     };
 
 
@@ -80,6 +84,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
           console.log("Connected!");
           var query = "SELECT name FROM room WHERE user_1 IN (" + mysql.escape(user_1)+"," + mysql.escape(user_2) + ") AND user_2 IN (" +  mysql.escape(user_2)+ ","+ mysql.escape(user_1) + ")";
           var qresult  =  con.query(query,callback);
+          con.end();
 
 
       };
