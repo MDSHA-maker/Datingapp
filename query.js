@@ -1,16 +1,60 @@
   var now =new Date();
  var mili;
 function Socketdb(){
-var con = require("./chat.js");
+// va con = require("./chat.js");
 var mysql = require('mysql');
 this.mysql= mysql;
-this.con = con;
+var pool      =    mysql.createPool({
+  connectionLimit : 100, 
+  host     : 'us-cdbr-iron-east-05.cleardb.net',
+  user     : 'b5e82d70346410',
+  password : '8617e451',
+  database : 'heroku_5d0cbfe4c266954'
+});
 
  
-
+this.pool=pool;
  
 
 }
+
+function handle_database(req,res) {
+   
+    pool.getConnection(function(err,connection){
+        if (err) {
+          res.json({"code" : 100, "status" : "Error in connection database"});
+          return;
+        }  
+
+        console.log('connected as id ' + connection.threadId);
+       
+        connection.query("select * from user",function(err,rows){
+            connection.release();
+            if(!err) {
+                res.json(rows);
+            }          
+        });
+
+        connection.on('error', function(err) {      
+              res.json({"code" : 100, "status" : "Error in connection database"});
+              return;    
+        });
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) {
   con = this.con;
@@ -22,9 +66,22 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
 // var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
      
 
-   console.log("Connected!"+date);
-    var query = "INSERT INTO messages (name,message,handle,timestamp) VALUES( " + mysql.escape(room) + ","+ mysql.escape(message) +"," + mysql.escape(handle) + "," + mysql.escape(date)+" )" ;
-    con.query(query ,callback)
+    pool.getConnection(function(err,connection){
+        if (err) {
+          res.json({"code" : 100, "status" : "Error in connection database"});
+          return;
+        }  
+
+        console.log('connected as id ' + connection.threadId);
+       
+        var query = "INSERT INTO messages (name,message,handle,timestamp) VALUES( " + mysql.escape(room) + ","+ mysql.escape(message) +"," + mysql.escape(handle) + "," + mysql.escape(date)+" )" ;
+        con.query(query ,callback)
+
+        connection.on('error', function(err) {      
+              res.json({"code" : 100, "status" : "Error in connection database"});
+              return;    
+        });
+  });
     
 };
 
@@ -32,12 +89,27 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
   Socketdb.prototype.getMessage =  function(room,callback) {
     con = this.con;
       mysql= this.mysql;
-        
+       
+    pool.getConnection(function(err,connection){
+        if (err) {
+          res.json({"code" : 100, "status" : "Error in connection database"});
+          return;
+        }  
 
-
+        console.log('connected as id ' + connection.threadId);
+       
       console.log("Connected!");
       var query = "SELECT message,handle,timestamp FROM messages WHERE name=" + mysql.escape(room);
       con.query(query, callback)
+      
+
+        connection.on('error', function(err) {      
+              res.json({"code" : 100, "status" : "Error in connection database"});
+              return;    
+        });
+  });
+
+
       
 
 
@@ -72,15 +144,31 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
       con = this.con;
       mysql= this.mysql;
      room = Math.random().toString(36).substr(2, 100);
+         pool.getConnection(function(err,connection){
+        if (err) {
+          res.json({"code" : 100, "status" : "Error in connection database"});
+          return;
+        }  
+
+        console.log('connected as id ' + connection.threadId);
        
-
-
-        console.log("Connected!");
+    console.log("Connected!");
         var query = "INSERT INTO room (name,user_1,user_2) VALUES ( " + mysql.escape(room) + ","+ mysql.escape(user_1) +"," + mysql.escape(user_2) + ")" ;
         
         con.query(query,callback)
            return room;
            
+      
+
+        connection.on('error', function(err) {      
+              res.json({"code" : 100, "status" : "Error in connection database"});
+              return;    
+        });
+  });
+
+        
+
+      
     };
 
 
@@ -88,11 +176,28 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
         con = this.con;
         mysql= this.mysql;
           
+                   pool.getConnection(function(err,connection){
+        if (err) {
+          res.json({"code" : 100, "status" : "Error in connection database"});
+          return;
+        }  
 
-
-          console.log("Connected!");
+        console.log('connected as id ' + connection.threadId);
+       
+       console.log("Connected!");
           var query = "SELECT name FROM room WHERE user_1 IN (" + mysql.escape(user_1)+"," + mysql.escape(user_2) + ") AND user_2 IN (" +  mysql.escape(user_2)+ ","+ mysql.escape(user_1) + ")";
           var qresult  =  con.query(query,callback);
+      
+
+        connection.on('error', function(err) {      
+              res.json({"code" : 100, "status" : "Error in connection database"});
+              return;    
+        });
+  });
+
+
+
+      
           
 
 

@@ -8,16 +8,12 @@ var conn = mysql.createConnection({
   user     : 'b5e82d70346410',
   password : '8617e451',
   database : 'heroku_5d0cbfe4c266954'
-},function(err){
-    
-    if(err)
-    {
-        
-        console.log("error");
-    }
-    
-});
+})
 
+conn .connect(function(err) {
+	if (err) throw err
+	
+});
 function handleDisconnect (){
 
  conn.connect(function(err) {              // The server is either down
