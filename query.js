@@ -142,7 +142,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
 
 
 
-    Socketdb.prototype.createRoom =  function(user_1, user_2,callback) {
+    Socketdb.prototype.createRoom =  function(user_1, user_2) {
       
       mysql= this.mysql;
       var rm;
@@ -168,10 +168,10 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
               
               return;    
         });
-        console.log("room is now:" + rm)
+        
 
   });
-
+          console.log("room is now:" + rm)
           return rm;         
 
       
