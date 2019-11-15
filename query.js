@@ -145,7 +145,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
     Socketdb.prototype.createRoom =  function(user_1, user_2) {
       
       mysql= this.mysql;
-    var Room;I
+    var Room;
      
         this.pool.getConnection(function(err,connection){
         if (err) {
