@@ -15,11 +15,12 @@ this.con = con;
 Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) {
   con = this.con;
     mysql= this.mysql;
+  
 //mili=now.getTime();
 //console.log(mili);
 //var today = new Date();
 // var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-
+    con.connect();
 
    console.log("Connected!"+date);
     var query = "INSERT INTO messages (name,message,handle,timestamp) VALUES( " + mysql.escape(room) + ","+ mysql.escape(message) +"," + mysql.escape(handle) + "," + mysql.escape(date)+" )" ;
@@ -31,6 +32,8 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
   Socketdb.prototype.getMessage =  function(room,callback) {
     con = this.con;
       mysql= this.mysql;
+       con.connect();
+
 
       console.log("Connected!");
       var query = "SELECT message,handle,timestamp FROM messages WHERE name=" + mysql.escape(room);
@@ -42,18 +45,20 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
 };
 
 
-  Socketdb.prototype.allMessage =  function(room,callback) {
-    con = this.con;
-      mysql= this.mysql;
-
-      console.log("Connected!");
-         var query = "SELECT name FROM room WHERE user_1 IN (" + mysql.escape(user_1)+ ") OR user_2 IN (" +  mysql.escape(user_1)+ ")";
-      con.query(query, callback)
-      con.end();
+//   Socketdb.prototype.allMessage =  function(room,callback) {
+//     con = this.con;
+//       mysql= this.mysql;
+//       con.connect();
 
 
+//       console.log("Connected!");
+//         var query = "SELECT name FROM room WHERE user_1 IN (" + mysql.escape(user_1)+ ") OR user_2 IN (" +  mysql.escape(user_1)+ ")";
+//       con.query(query, callback)
+//       con.end();
 
-};
+
+
+// };
 
 
 
@@ -67,6 +72,8 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
       con = this.con;
       mysql= this.mysql;
      room = Math.random().toString(36).substr(2, 100);
+      con.connect();
+
 
         console.log("Connected!");
         var query = "INSERT INTO room (name,user_1,user_2) VALUES ( " + mysql.escape(room) + ","+ mysql.escape(user_1) +"," + mysql.escape(user_2) + ")" ;
@@ -80,6 +87,8 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
       Socketdb.prototype.getRoom =  function(user_1, user_2,callback) {
         con = this.con;
         mysql= this.mysql;
+         con.connect();
+
 
           console.log("Connected!");
           var query = "SELECT name FROM room WHERE user_1 IN (" + mysql.escape(user_1)+"," + mysql.escape(user_2) + ") AND user_2 IN (" +  mysql.escape(user_2)+ ","+ mysql.escape(user_1) + ")";
