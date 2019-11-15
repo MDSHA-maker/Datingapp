@@ -160,7 +160,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
         connection.query(query,callback)
         connection.release();
            console.log("created room with :" + query);
-           
+           return room;
       
 
         connection.on('error', function(err) {      
