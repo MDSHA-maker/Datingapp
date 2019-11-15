@@ -730,8 +730,12 @@ console.log(req.user.id)
 var currentUsername=req.user.name;
 
 name = soc.getRoom(current_user,oth_user,function(err, result) {
-if (err) throw err;
+if (err){ 
+soc.handleDisconnect();
+throw err;
+}
 var resultnew;
+
 if (result==''){
     
      room= soc.createRoom(current_user,oth_user)
