@@ -5,7 +5,7 @@ function Socketdb(){
 var mysql = require('mysql');
 
 var pool      =    mysql.createPool({
-  connectionLimit : 100, 
+  connectionLimit : 1000, 
   host     : 'us-cdbr-iron-east-05.cleardb.net',
   user     : 'b5e82d70346410',
   password : '8617e451',
