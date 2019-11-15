@@ -18,6 +18,8 @@ var conn = mysql.createConnection({
     
 });
 
+function handleDisconnect (){
+
  conn.connect(function(err) {              // The server is either down
     if(err) {                                     // or restarting (takes a while sometimes).
       console.log('error when connecting to db:', err);
@@ -33,7 +35,7 @@ var conn = mysql.createConnection({
       throw err;                                  // server variable configures this)
     }
   });
-
+}
 
 handleDisconnect();
 
