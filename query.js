@@ -148,7 +148,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
      room = Math.random().toString(36).substr(2, 100);
          this.pool.getConnection(function(err,connection){
         if (err) {
-          
+           console.log("room not created");
           return;
         }  
 
@@ -179,9 +179,9 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
      
         mysql= this.mysql;
           
-                   this.pool.getConnection(function(err,connection){
+        this.pool.getConnection(function(err,connection){
         if (err) {
-          
+          console.log("room not found");
           return;
         }  
 
@@ -212,7 +212,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
 
 
   Socketdb.prototype.handleDisconnect= function (){
-  con= this.con;
+ 
  connection.connect(function(err) {              // The server is either down
     if(err) {                                     // or restarting (takes a while sometimes).
       console.log('error when connecting to db:', err);
