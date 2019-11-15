@@ -166,9 +166,9 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
 
         connection.on('error', function(err) {      
               
-              return room;    
+               
         });
-        
+          return room; 
 
   });
            
