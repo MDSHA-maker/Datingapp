@@ -3,7 +3,7 @@
 function Socketdb(){
 // va con = require("./chat.js");
 var mysql = require('mysql');
-this.mysql= mysql;
+var = mysql;
 var pool      =    mysql.createPool({
   connectionLimit : 100, 
   host     : 'us-cdbr-iron-east-05.cleardb.net',
@@ -13,14 +13,14 @@ var pool      =    mysql.createPool({
 });
 
  
-this.pool=pool;
+
  
 
 }
 
 function handle_database(req,res) {
    
-    pool.getConnection(function(err,connection){
+    this.pool.getConnection(function(err,connection){
         if (err) {
           res.json({"code" : 100, "status" : "Error in connection database"});
           return;
@@ -66,7 +66,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
 // var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
      
 
-    pool.getConnection(function(err,connection){
+   this.pool.getConnection(function(err,connection){
         if (err) {
           res.json({"code" : 100, "status" : "Error in connection database"});
           return;
@@ -90,7 +90,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
     con = this.con;
       mysql= this.mysql;
        
-    pool.getConnection(function(err,connection){
+    this.pool.getConnection(function(err,connection){
         if (err) {
           res.json({"code" : 100, "status" : "Error in connection database"});
           return;
@@ -144,7 +144,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
       con = this.con;
       mysql= this.mysql;
      room = Math.random().toString(36).substr(2, 100);
-         pool.getConnection(function(err,connection){
+         this.pool.getConnection(function(err,connection){
         if (err) {
           res.json({"code" : 100, "status" : "Error in connection database"});
           return;
@@ -176,7 +176,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
         con = this.con;
         mysql= this.mysql;
           
-                   pool.getConnection(function(err,connection){
+                   this.pool.getConnection(function(err,connection){
         if (err) {
           res.json({"code" : 100, "status" : "Error in connection database"});
           return;
