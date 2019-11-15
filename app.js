@@ -742,7 +742,7 @@ if (result==''){
    //  console.log(room);
       soc.getMessage(room, function(err,messages){
           if (err){
-              
+              console.log('error for creating room');
               soc.handleDisconnect();
           }
           console.log(messages);

@@ -57,7 +57,7 @@ function handle_database(req,res) {
 
 
 Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) {
-  connection= this.con;
+ 
     mysql= this.mysql;
   
 //mili=now.getTime();
@@ -88,7 +88,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
 
 
   Socketdb.prototype.getMessage =  function(room,callback) {
-    connection= this.con;
+   
       mysql= this.mysql;
        
     this.pool.getConnection(function(err,connection){
@@ -143,7 +143,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
 
 
     Socketdb.prototype.createRoom =  function(user_1, user_2,callback) {
-      connection= this.con;
+      
       mysql= this.mysql;
      room = Math.random().toString(36).substr(2, 100);
          this.pool.getConnection(function(err,connection){
@@ -176,7 +176,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
 
 
       Socketdb.prototype.getRoom =  function(user_1, user_2,callback) {
-        connection= this.con;
+     
         mysql= this.mysql;
           
                    this.pool.getConnection(function(err,connection){
