@@ -145,9 +145,9 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
     Socketdb.prototype.createRoom =  function(user_1, user_2) {
       
       mysql= this.mysql;
-    
+    var Room;I
      
-        rm=  this.pool.getConnection(function(err,connection){
+        this.pool.getConnection(function(err,connection){
         if (err) {
            console.log("room not created");
           return;
@@ -155,6 +155,7 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
 
         console.log('connected as id ' + connection.threadId);
        var room = Math.random().toString(36).substr(2, 100);
+       Room=room;
     console.log("Connected!");
         var query = "INSERT INTO room (name,user_1,user_2) VALUES ( " + mysql.escape(room) + ","+ mysql.escape(user_1) +"," + mysql.escape(user_2) + ")" ;
         
@@ -168,13 +169,13 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
               
                
         });
-          return room; 
+        //  return room; 
 
   });
            
           
-          console.log("room is now:" + rm)
-          return rm;         
+          console.log("room is now:" + Room)
+          return Room;         
 
       
     };
