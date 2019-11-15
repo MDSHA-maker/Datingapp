@@ -3,7 +3,7 @@
 function Socketdb(){
 // va con = require("./chat.js");
 var mysql = require('mysql');
-var = mysql;
+
 var pool      =    mysql.createPool({
   connectionLimit : 100, 
   host     : 'us-cdbr-iron-east-05.cleardb.net',
