@@ -728,7 +728,7 @@ console.log(req.user.id)
  var current_user=req.user.id;
  var oth_user=req.params.oth_user;
 var currentUsername=req.user.name;
-
+//mionlnn
 name = soc.getRoom(current_user,oth_user,function(err, result) {
 if (err){ 
 soc.handleDisconnect();
