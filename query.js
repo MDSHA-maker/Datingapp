@@ -191,14 +191,14 @@ Socketdb.prototype.addMessage =  function(room, message, handle,date ,callback) 
           var query = "SELECT name FROM room WHERE user_1 IN (" + mysql.escape(user_1)+"," + mysql.escape(user_2) + ") AND user_2 IN (" +  mysql.escape(user_2)+ ","+ mysql.escape(user_1) + ")";
           qresult  =  connection.query(query,callback);
           connection.release();
-           qresult;
+          console.log("the query result is :" + qresult);
 
         connection.on('error', function(err) {      
               
               
         });
         
-        return
+      
   });
 
 
