@@ -807,8 +807,8 @@ io.on('connection', function(socket){
    
     io.sockets.in([msg[1]]).emit('chat message', msg);
     soc.addMessage(msg[1], msg[0],msg[2],msg[3] ,function(err,result){
-        soc.handleDisconnect();
-       if (err) {throw err}
+       
+       if (err) { soc.handleDisconnect();}
        else{console.log(msg[0] + 'is being save to database');};
        
         
