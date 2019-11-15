@@ -735,7 +735,7 @@ soc.handleDisconnect();
 throw err;
 }
 var resultnew;
-
+console.log("The result is: " +result);
 if (result==''){
     
      room= soc.createRoom(current_user,oth_user)
