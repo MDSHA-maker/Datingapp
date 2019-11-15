@@ -739,7 +739,8 @@ console.log("The result is: " +result);
 if (result==''){
     
      room= soc.createRoom(current_user,oth_user)
-   //  console.log(room);
+     console.log(room);
+        
       soc.getMessage(room, function(err,messages){
           if (err){
               console.log('error for creating room');
