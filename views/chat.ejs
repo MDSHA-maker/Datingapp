@@ -155,7 +155,7 @@ videoicon.style.backgroundColor = "red";
         $('#m').val('');
         return false;
       });
-      socket.on('chat message', function(msg){
+      socket1.on('chat message', function(msg){
         // $( "#nm" ).remove();
         var date=new Date().toLocaleString().split(',').join("");
         var txt = '<li   class="ui large header">'+ msg[2]+  ": " + msg[0] + '<div id="date" class="ui tiny header">'+date + "</div>" +"</li>"
