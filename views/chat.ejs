@@ -93,7 +93,11 @@ var peer = new Peer(vid_room,{ config: {'iceServers': [
     { url: turn, credential: cred,username:iceuser }
   ]} /* Sample servers, please use appropriate ones */
 })
-
+   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+        navigator.getUserMedia({video: true, audio: true}, function(stream) {
+          video2.srcObject=stream;
+             videoicon.style.backgroundColor = "red";
+        });
     var conn = peer.connect(call_room);
     // on open will be launch when you successfully connect to PeerServer
     conn.on('open', function(err){
@@ -101,7 +105,7 @@ var peer = new Peer(vid_room,{ config: {'iceServers': [
       // here you have conn.id
       navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
         navigator.getUserMedia({video: true, audio: true}, function(stream) {
-          video2.srcObject=remoteStream;
+          video2.srcObject=stream;
         });
       console.log('made it here');
       conn.send('hi!');
