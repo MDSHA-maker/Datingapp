@@ -31,10 +31,6 @@
 <h1 id="n" hidden> <%=JSON.stringify(room)%> </h1>
  <h1 id="o" hidden> <%=JSON.stringify(otheruser)%> </h1>    
  <h1 id="j" hidden> <%=JSON.stringify(user)%> </h1>  
-  <p id="stun" hidden><%=JSON.stringify(stun)%></p>
-  <p id="turn" hidden><%=JSON.stringify(turn)%></p>
-    <p id="cred" hidden><%=JSON.stringify(cred)%></p>
-    <p id="iceuser" hidden><%=JSON.stringify(iceuser)%></p>
  <div class="scrollview">
     <ul id="messages" >
        
@@ -49,7 +45,7 @@
           </span>
               <%=msg.message%>  
                <!--<%=msg.handle%>-->
-            <div  class="ui tiny header"><p><%=msg.timestamp%></p></div>    
+            <div ><p><%=msg.timestamp%></p></div>    
         </li>
      
         
@@ -68,91 +64,75 @@
     <script src="/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
-  
 
-  function func(){
-    var socket ;
-    var stun = JSON.parse($('#stun').text());
-  var turn = JSON.parse($('#turn').text());
-  var cred = JSON.parse($('#cred').text());
-   var iceuser = JSON.parse($('#iceuser').text());
-  var name = JSON.parse($('#n').text());
- socket= io('',{query: 'room='+name});
-  var user = JSON.parse($('#u').text());
-  var id = JSON.parse($('#j').text());
-    var otheruser = JSON.parse($('#o').text());
-    var call_room = name+otheruser;
-  var vid_room= name+id;
+//   function func(){
+    
+//   var name = JSON.parse($('#n').text());
+//   var socket = io('',{query: 'room='+name});
+//   var user = JSON.parse($('#u').text());
+//   var id = JSON.parse($('#j').text());
+//     var otheruser = JSON.parse($('#o').text());
+//     var call_room = name+otheruser;
+//   var vid_room= name+id;
  
-  var video= document.getElementById('video')
-  var video2= document.getElementById('video2')
-  var answer= document.getElementById('answer')
-    var videoicon= document.getElementById('videoicon')
+//   var video= document.getElementById('video')
+//   var video2= document.getElementById('video2')
+//   var answer= document.getElementById('answer')
+//     var videoicon= document.getElementById('videoicon')
 
+// var peer = new Peer(vid_room)
 
-var peer = new Peer(vid_room,{ config: {'iceServers': [
-    { url: stun },
-    { url: turn, credential: cred ,username:iceuser}
-  ]} /* Sample servers, please use appropriate ones */
-})
-
-    var conn = peer.connect(call_room);
-    
-    
-      socket.on('video', function(){
-        console.log("video icon clicked");
-      }
-    );
-    // on open will be launch when you successfully connect to PeerServer
-    conn.on('open', function(err){
-      if (err) console.log(err);
-      // here you have conn.id
-      console.log('made it here');
-      conn.send('hi!');
-           socket.emit('video', name);
+//     var conn = peer.connect(call_room);
+//     // on open will be launch when you successfully connect to PeerServer
+//     conn.on('open', function(err){
+//       if (err) console.log(err);
+//       // here you have conn.id
+//       console.log('made it here');
+//       conn.send('hi!');
       
-      videoicon.style.backgroundColor = "red";
-    });
+      
+//       videoicon.style.backgroundColor = "red";
+//     });
 
-    peer.on('connection', function(conn) {
-      conn.on('data', function(data){
-        // Will print 'hi!'
-            videoicon.style.backgroundColor = "red";
-        console.log(data);
-      });
-    });
+//     peer.on('connection', function(conn) {
+//       conn.on('data', function(data){
+//         // Will print 'hi!'
+//             videoicon.style.backgroundColor = "red";
+//         console.log(data);
+//       });
+//     });
     
-navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-  navigator.getUserMedia({video: true, audio: true}, function(stream) {
-    var call = peer.call(call_room, stream);
-    call.on('stream', function(remoteStream) {
-      video.srcObject=remoteStream;
-videoicon.style.backgroundColor = "red";
+// navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+//   navigator.getUserMedia({video: true, audio: true}, function(stream) {
+//     var call = peer.call(call_room, stream);
+//     call.on('stream', function(remoteStream) {
+//       video.srcObject=remoteStream;
+// videoicon.style.backgroundColor = "red";
    
-    });
-  }, function(err) {
-    console.log('Failed to get local stream' ,err);
-  });
+//     });
+//   }, function(err) {
+//     console.log('Failed to get local stream' ,err);
+//   });
 
-  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-  peer.on('call', function(call) {
-    navigator.getUserMedia({video: true, audio: true}, function(stream) {
-      call.answer(stream); // Answer the call with an A/V stream.
-      call.on('stream', function(remoteStream) {
-        video.srcObject=remoteStream;
-        videoicon.style.backgroundColor = "red";
-      });
-    }, function(err) {
-      console.log('Failed to get local stream' ,err);
-    });
-  });
+//   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+//   peer.on('call', function(call) {
+//     navigator.getUserMedia({video: true, audio: true}, function(stream) {
+//       call.answer(stream); // Answer the call with an A/V stream.
+//       call.on('stream', function(remoteStream) {
+//         video.srcObject=remoteStream;
+//         videoicon.style.backgroundColor = "red";
+//       });
+//     }, function(err) {
+//       console.log('Failed to get local stream' ,err);
+//     });
+//   });
   
   
      
-  }
+  // }
     $(function () {
        var name = JSON.parse($('#n').text());
-      var socket1 = io('',{query: 'room='+name});
+      var socket = io('',{query: 'room='+name});
         var user = JSON.parse($('#u').text());;
           var datetime
      
@@ -161,16 +141,16 @@ videoicon.style.backgroundColor = "red";
       datetime=new Date().toLocaleString().split(',').join("");
         var arr=[$('#m').val(), name,user,datetime];
         var msg= $('#m').val()
-        socket1.emit('chat message', arr);
-        socket1.emit('room', name);
+        socket.emit('chat message', arr);
+        socket.emit('room', name);
     
         $('#m').val('');
         return false;
       });
-      socket1.on('chat message', function(msg){
+      socket.on('chat message', function(msg){
         // $( "#nm" ).remove();
         var date=new Date().toLocaleString().split(',').join("");
-        var txt = '<li   class="ui large header">'+ msg[2]+  ": " + msg[0] + '<div id="date" class="ui tiny header">'+date + "</div>" +"</li>"
+        var txt = '<li   class="ui large header">'+ msg[2]+  ": " + msg[0] + '<div id="date"><p>'+date + "</p></div>" +"</li>"
         console.log(txt);
         $('#messages').append(txt);
         // $('#nm').append($('<div id="date" class="ui tiny header">').text();
