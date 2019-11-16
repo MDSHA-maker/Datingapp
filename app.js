@@ -759,8 +759,13 @@ if (result==''){
           myICE.then(function(ice_server){
    
 
+            console.log("inside ice");
           res.render('chat', {username: currentUsername, user:current_user ,otheruser:oth_user,room: result[0].name, messages:messages,stun:ice_server.iceServers[0].url,turn:ice_server.iceServers[1].url,cred:ice_server.iceServers[1].credential,iceuser:ice_server.iceServers[1].username });
-             });}
+             });
+          
+          
+          
+      }
       )
       
      })
@@ -775,7 +780,7 @@ else{
           console.log(messages);
          myICE.then(function(ice_server){
    
-
+            console.log("inside ice");
           res.render('chat', {username: currentUsername, user:current_user ,otheruser:oth_user,room: result[0].name, messages:messages,stun:ice_server.iceServers[0].url,turn:ice_server.iceServers[1].url,cred:ice_server.iceServers[1].credential ,iceuser:ice_server.iceServers[1].username});
              });
      
@@ -850,7 +855,6 @@ io.on('connection', function(socket){
      socket.on('video', function(msg){
     socket.join(socket.handshake.query.name,function(err){if (err) console.log(err);else console.log("sucess")});
     console.log(socket.handshake.query);
-      console.log('a video connected');
     io.sockets.in(msg).emit('video',msg);
   
 });
