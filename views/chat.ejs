@@ -18,7 +18,7 @@
       #videoicon {margin: 0px 0px 0px 10px; }
     </style>
   </head>
-  <body>
+  <body onload="foo()">
  <div class="videocall">
   
   <video autoplay=true id="video" height="400px" width="400px"><%=username%></video>
@@ -68,8 +68,25 @@
     <script src="/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
+  function foo(){
      var videoicon= document.getElementById('videoicon')
   var socket = io('',{query: 'room='+name});
+    socket.on('chat message', function(msg){
+        // $( "#nm" ).remove();
+        var date=new Date().toLocaleString().split(',').join("");
+        var txt = '<li   class="ui large header"  style="width: 100%;">'+ msg[2]+  " : " + msg[0] + '<div id="date" style="  text-align: right;"><h5>'+date + "</h5></div>" +"</li>"
+        console.log(txt);
+        
+        $('#messages').append(txt);
+        // $('#nm').append($('<div id="date" class="ui tiny header">').text();
+        
+        console.log("chatuser"+user);
+      }); 
+    
+    
+  }
+  
+  
   function func(){
     
   var name = JSON.parse($('#n').text());
@@ -153,17 +170,7 @@ videoicon.style.backgroundColor = "red";
   
      
   }
-   socket.on('chat message', function(msg){
-        // $( "#nm" ).remove();
-        var date=new Date().toLocaleString().split(',').join("");
-        var txt = '<li   class="ui large header"  style="width: 100%;">'+ msg[2]+  " : " + msg[0] + '<div id="date" style="  text-align: right;"><h5>'+date + "</h5></div>" +"</li>"
-        console.log(txt);
-        
-        $('#messages').append(txt);
-        // $('#nm').append($('<div id="date" class="ui tiny header">').text();
-        
-        console.log("chatuser"+user);
-      });
+  
   
     $(function () {
        var name = JSON.parse($('#n').text());
@@ -181,6 +188,17 @@ videoicon.style.backgroundColor = "red";
     
         $('#m').val('');
         return false;
+      });
+       socket.on('chat message', function(msg){
+        // $( "#nm" ).remove();
+        var date=new Date().toLocaleString().split(',').join("");
+        var txt = '<li   class="ui large header"  style="width: 100%;">'+ msg[2]+  " : " + msg[0] + '<div id="date" style="  text-align: right;"><h5>'+date + "</h5></div>" +"</li>"
+        console.log(txt);
+        
+        $('#messages').append(txt);
+        // $('#nm').append($('<div id="date" class="ui tiny header">').text();
+        
+        console.log("chatuser"+user);
       });
      
     });
