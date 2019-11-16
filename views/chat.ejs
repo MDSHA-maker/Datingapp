@@ -45,7 +45,7 @@
           </span>
               <%=msg.message%>  
                <!--<%=msg.handle%>-->
-            <div style="text-align: right;"><h5><%=msg.timestamp%></h5></div>    
+            <div style="text-align: right;  width: 100%;"><h5><%=msg.timestamp%></h5></div>    
         </li>
      
         
@@ -151,12 +151,13 @@
       socket.on('chat message', function(msg){
         // $( "#nm" ).remove();
         var date=new Date().toLocaleString().split(',').join("");
-        var txt = '<li   class="ui large header">'+ msg[2]+  " : " + msg[0] + '<div id="date" style="text-align: right;"><h5>'+date + "</h5></div>" +"</li>"
+        var txt = '<li   class="ui large header">'+ msg[2]+  " : " + msg[0] + '<div id="date" style=" width: 100%; text-align: right;"><h5>'+date + "</h5></div>" +"</li>"
         console.log(txt);
         $('#messages').append(txt);
         // $('#nm').append($('<div id="date" class="ui tiny header">').text();
         
         console.log("chatuser"+user);
+          $('#messages').animate({scrollTop: $('#messages').prop("scrollHeight")}, 500);
       });
     });
   </script>
