@@ -87,7 +87,7 @@
   var video2= document.getElementById('video2')
   var answer= document.getElementById('answer')
     var videoicon= document.getElementById('videoicon')
-
+  socket.on('video', function(msg){ videoicon.style.backgroundColor = "red";});
 var peer = new Peer(vid_room,{ config: {'iceServers': [
     { url: stun },
     { url: turn, credential: cred,username:iceuser }
@@ -110,7 +110,6 @@ var peer = new Peer(vid_room,{ config: {'iceServers': [
       conn.send('hi!');
       
       
-      videoicon.style.backgroundColor = "red";
     });
 
     peer.on('connection', function(conn) {
