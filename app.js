@@ -846,10 +846,11 @@ io.on('connection', function(socket){
   
 });
 io.on('connection', function(socket){
-  console.log('a user connected');
-     socket.on('video', function(msg){
+  //console.log('a user connected');
+     socket.on('chat message', function(msg){
     socket.join(socket.handshake.query.name,function(err){if (err) console.log(err);else console.log("sucess")});
     console.log(socket.handshake.query);
+      console.log('a video connected');
     io.sockets.in(msg).emit('video',msg);
   
 });
