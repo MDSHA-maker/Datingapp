@@ -68,9 +68,10 @@
     <script src="/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
+    var socket = io('',{query: 'room='+name});
   function foo(){
      var videoicon= document.getElementById('videoicon')
-  var socket = io('',{query: 'room='+name});
+
     socket.on('chat message', function(msg){
         // $( "#nm" ).remove();
         var date=new Date().toLocaleString().split(',').join("");
