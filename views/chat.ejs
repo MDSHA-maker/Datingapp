@@ -97,16 +97,15 @@ var peer = new Peer(vid_room,{ config: {'iceServers': [
         navigator.getUserMedia({video: true, audio: true}, function(stream) {
           video2.srcObject=stream;
              videoicon.style.backgroundColor = "red";
-        });
+        }, function(err) {
+    console.log('Failed to get local stream' ,err);
+  });
     var conn = peer.connect(call_room);
     // on open will be launch when you successfully connect to PeerServer
     conn.on('open', function(err){
       if (err) console.log(err);
       // here you have conn.id
-      navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-        navigator.getUserMedia({video: true, audio: true}, function(stream) {
-          video2.srcObject=stream;
-        });
+   
       console.log('made it here');
       conn.send('hi!');
       
