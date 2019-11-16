@@ -34,7 +34,7 @@
   <p id="stun" hidden><%=JSON.stringify(stun)%></p>
   <p id="turn" hidden><%=JSON.stringify(turn)%></p>
     <p id="cred" hidden><%=JSON.stringify(cred)%></p>
-
+    <p id="iceuser" hidden><%=JSON.stringify(iceuser)%></p>
  <div class="scrollview">
     <ul id="messages" >
        
@@ -75,6 +75,7 @@
     var stun = JSON.parse($('#stun').text());
   var turn = JSON.parse($('#turn').text());
   var cred = JSON.parse($('#cred').text());
+   var iceuser = JSON.parse($('#iceuser').text());
   var name = JSON.parse($('#n').text());
  socket= io('',{query: 'room='+name});
   var user = JSON.parse($('#u').text());
@@ -91,7 +92,7 @@
 
 var peer = new Peer(vid_room,{ config: {'iceServers': [
     { url: stun },
-    { url: turn, credential: cred }
+    { url: turn, credential: cred ,username:iceuser}
   ]} /* Sample servers, please use appropriate ones */
 })
 

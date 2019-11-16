@@ -759,7 +759,7 @@ if (result==''){
           myICE.then(function(ice_server){
    
 
-          res.render('chat', {username: currentUsername, user:current_user ,otheruser:oth_user,room: result[0].name, messages:messages,stun:ice_server.iceServers[0].url,turn:ice_server.iceServers[1].url,cred:ice_server.iceServers[1].credential });
+          res.render('chat', {username: currentUsername, user:current_user ,otheruser:oth_user,room: result[0].name, messages:messages,stun:ice_server.iceServers[0].url,turn:ice_server.iceServers[1].url,cred:ice_server.iceServers[1].credential,iceuser:ice_server.iceServers.username });
              });}
       )
       
@@ -776,7 +776,7 @@ else{
          myICE.then(function(ice_server){
    
 
-          res.render('chat', {username: currentUsername, user:current_user ,otheruser:oth_user,room: result[0].name, messages:messages,stun:ice_server.iceServers[0].url,turn:ice_server.iceServers[1].url,cred:ice_server.iceServers[1].credential });
+          res.render('chat', {username: currentUsername, user:current_user ,otheruser:oth_user,room: result[0].name, messages:messages,stun:ice_server.iceServers[0].url,turn:ice_server.iceServers[1].url,cred:ice_server.iceServers[1].credential ,iceuser:ice_server.iceServers.username});
              });
      
      
