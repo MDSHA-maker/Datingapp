@@ -96,7 +96,7 @@ var peer = new Peer(vid_room,{ config: {'iceServers': [
    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
         navigator.getUserMedia({video: true, audio: true}, function(stream) {
           video2.srcObject=stream;
-            socket.emit('video', "" );
+            socket.emit('video', vid_room );
              videoicon.style.backgroundColor = "red";
         }, function(err) {
     console.log('Failed to get local stream' ,err);

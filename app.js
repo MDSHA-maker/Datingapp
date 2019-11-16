@@ -850,7 +850,7 @@ io.on('connection', function(socket){
      socket.on('video', function(msg){
     socket.join(socket.handshake.query.name,function(err){if (err) console.log(err);else console.log("sucess")});
     console.log(socket.handshake.query);
-    io.sockets.in(msg).emit('video');
+    io.sockets.in(msg).emit('video',msg);
   
 });
 // socket.on('disconnect', function(){
