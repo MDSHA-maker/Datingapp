@@ -216,6 +216,7 @@
     "tough-cookie": "^3.0.1",
     "tunnel-agent": "^0.6.0",
     "tweetnacl": "^1.0.1",
+    "twilio": "^3.37.1",
     "type-is": "^1.6.18",
     "typedarray": "0.0.6",
     "uglify-js": "^3.6.9",
