@@ -846,8 +846,8 @@ io.on('connection', function(socket){
   
 });
 io.on('connection', function(socket){
-  //console.log('a user connected');
-     socket.on('chat message', function(msg){
+  console.log('a user connected');
+     socket.on('video', function(msg){
     socket.join(socket.handshake.query.name,function(err){if (err) console.log(err);else console.log("sucess")});
     console.log(socket.handshake.query);
       console.log('a video connected');
