@@ -13,6 +13,11 @@ var methodoverride=require("method-override")
 const session=require("express-session");
 const multer = require('multer');
 var braintree = require("braintree");
+const accountSid = 'AC08632c1f18478619c1ee65011bc88b1d';
+const authToken ='843c9e3c608c117069dd2497d1256a7d' ;
+const client = require('twilio')(accountSid, authToken);
+
+var myICE = client.tokens.create(); 
 
 
 //const GridFsStorage = require('multer-gridfs-storage');
@@ -749,10 +754,13 @@ if (result==''){
               soc.handleDisconnect();
           }
           console.log(messages);
-       
+            
           console.log("other user"+oth_user);
-          res.render('chat', {username: currentUsername, user:current_user ,otheruser:oth_user,room: result[0].name, messages:messages });
-      }
+          myICE.then(function(ice_server){
+   
+
+          res.render('chat', {username: currentUsername, user:current_user ,otheruser:oth_user,room: result[0].name, messages:messages,stun:ice_server.iceServers[0].url,turn:ice_server.iceServers[1].url,cred:ice_server.iceServers[1].credential });
+             });}
       )
       
      })
@@ -765,8 +773,16 @@ else{
               soc.handleDisconnect();
           }
           console.log(messages);
-          // res.render('chat', {username: currentUsername, otheruser:oth_user,room: room, messages:messages });
-          res.render('chat', {username: currentUsername,user:current_user ,otheruser:oth_user, room:result[0].name, messages:messages });
+         myICE.then(function(ice_server){
+   
+
+          res.render('chat', {username: currentUsername, user:current_user ,otheruser:oth_user,room: result[0].name, messages:messages,stun:ice_server.iceServers[0].url,turn:ice_server.iceServers[1].url,cred:ice_server.iceServers[1].credential });
+             });
+     
+     
+     
+     
+     
       })
       
       

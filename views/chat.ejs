@@ -31,6 +31,10 @@
 <h1 id="n" hidden> <%=JSON.stringify(room)%> </h1>
  <h1 id="o" hidden> <%=JSON.stringify(otheruser)%> </h1>    
  <h1 id="j" hidden> <%=JSON.stringify(user)%> </h1>  
+  <p id="stun" hidden><%=JSON.stringify(stun)%></p>
+  <p id="turn" hidden><%=JSON.stringify(turn)%></p>
+    <p id="cred" hidden><%=JSON.stringify(cred)%></p>
+
  <div class="scrollview">
     <ul id="messages" >
        
@@ -68,6 +72,9 @@
 
   function func(){
     var socket ;
+    var stun = JSON.parse($('#stun').text());
+  var turn = JSON.parse($('#turn').text());
+  var cred = JSON.parse($('#cred').text());
   var name = JSON.parse($('#n').text());
  socket= io('',{query: 'room='+name});
   var user = JSON.parse($('#u').text());
@@ -82,7 +89,11 @@
     var videoicon= document.getElementById('videoicon')
 
 
-var peer = new Peer(vid_room)
+var peer = new Peer(vid_room,{ config: {'iceServers': [
+    { url: stun },
+    { url: turn, credential: cred }
+  ]} /* Sample servers, please use appropriate ones */
+})
 
     var conn = peer.connect(call_room);
     
