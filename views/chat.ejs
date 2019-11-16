@@ -38,7 +38,7 @@
        
       
     <%messages.forEach(function(msg){%>
-        <li class="ui large header " style=" width: 100%;">
+        <li class="ui large header " style=" width: 500px;">
           <span>
             <%=msg.handle%>
             <span>:</span>
@@ -153,7 +153,7 @@
       socket.on('chat message', function(msg){
         // $( "#nm" ).remove();
         var date=new Date().toLocaleString().split(',').join("");
-        var txt = '<li   class="ui large header" style=" width: 100%;">'+ msg[2]+  " : " + msg[0] + '<div id="date" style=" width: 500px; text-align: right;"><h5>'+date + "</h5></div>" +"</li>"
+        var txt = '<li   class="ui large header" style=" width: 500px;">'+ msg[2]+  " : " + msg[0] + '<div id="date" style=" width: 500px; text-align: right;"><h5>'+date + "</h5></div>" +"</li>"
         console.log(txt);
         $('#messages').append(txt);
         // $('#nm').append($('<div id="date" class="ui tiny header">').text();
