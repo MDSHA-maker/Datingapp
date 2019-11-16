@@ -824,21 +824,29 @@ io.on('connection', function(socket){
     console.log('message: ' + msg);
   });
   //god
-//     socket.on('video', function(msg){
-//     socket.join(socket.handshake.query.name,function(err){if (err) console.log(err);else console.log("sucess")});
-//     console.log(socket.handshake.query);
-//     io.sockets.in(msg).emit('video');
 
-//   });
-  
-  
-  
   
   
   
 });
+io.on('connection', function(socket){
+  console.log('a user connected');
+     socket.on('video', function(msg){
+    socket.join(socket.handshake.query.name,function(err){if (err) console.log(err);else console.log("sucess")});
+    console.log(socket.handshake.query);
+    io.sockets.in(msg).emit('video');
+  
+});
+// socket.on('disconnect', function(){
+//     console.log('user disconnected');
+    
+    
+//   });
+});
 
-
+ 
+  
+  
 
 //payments
 app.get("/payment",ensureAuthenticated,(req,res)=>
