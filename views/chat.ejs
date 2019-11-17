@@ -1,5 +1,3 @@
-
-  
 <!doctype html>
 <% include partials/header2%>
 <html>
@@ -71,6 +69,7 @@
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
      var videoicon= document.getElementById('videoicon')
+
   function func(){
     
   var name = JSON.parse($('#n').text());
@@ -97,7 +96,7 @@ var peer = new Peer(vid_room,{ config: {'iceServers': [
    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
         navigator.getUserMedia({video: true, audio: true}, function(stream) {
           video2.srcObject=stream;
-            socket.emit('video', "" );
+            socket.emit('video', vid_room );
              videoicon.style.backgroundColor = "red";
         }, function(err) {
     console.log('Failed to get local stream' ,err);
@@ -117,6 +116,7 @@ var peer = new Peer(vid_room,{ config: {'iceServers': [
       
       
     });
+
     peer.on('connection', function(conn) {
       conn.on('data', function(data){
         // Will print 'hi!'
@@ -136,6 +136,7 @@ videoicon.style.backgroundColor = "red";
   }, function(err) {
     console.log('Failed to get local stream' ,err);
   });
+
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
   peer.on('call', function(call) {
     navigator.getUserMedia({video: true, audio: true}, function(stream) {
@@ -165,8 +166,8 @@ videoicon.style.backgroundColor = "red";
         var arr=[$('#m').val(), name,user,datetime];
         var msg= $('#m').val()
         socket.emit('chat message', arr);
-        socket.emit('room', name);
-    
+       
+   
         $('#m').val('');
         return false;
       });
@@ -174,7 +175,7 @@ videoicon.style.backgroundColor = "red";
         // $( "#nm" ).remove();
         var date=new Date().toLocaleString().split(',').join("");
         var txt = '<li   class="ui large header"  style="width: 100%;">'+ msg[2]+  " : " + msg[0] + '<div id="date" style="  text-align: right;"><h5>'+date + "</h5></div>" +"</li>"
-        console.log(txt);
+        console.log("New text over socket: "+ txt);
         
         $('#messages').append(txt);
         // $('#nm').append($('<div id="date" class="ui tiny header">').text();
@@ -185,4 +186,3 @@ videoicon.style.backgroundColor = "red";
   </script>
   </body>
 </html>
-

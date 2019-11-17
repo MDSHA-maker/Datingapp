@@ -830,7 +830,7 @@ io.on('connection', function(socket){
  
     socket.join(socket.handshake.query.room, function(err){if (err)console.log(err); else console.log("success")});
     console.log(socket.handshake.query.room);
-   
+   console.log("All sockets in room: " + io.sockets.in([msg[1]]))
     io.sockets.in([msg[1]]).emit('chat message', msg);
     soc.addMessage(msg[1], msg[0],msg[2],msg[3] ,function(err,result){
        
