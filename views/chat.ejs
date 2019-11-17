@@ -1,3 +1,5 @@
+
+  
 <!doctype html>
 <% include partials/header2%>
 <html>
@@ -18,7 +20,7 @@
       #videoicon {margin: 0px 0px 0px 10px; }
     </style>
   </head>
-  <body onload="foo()">
+  <body>
  <div class="videocall">
   
   <video autoplay=true id="video" height="400px" width="400px"><%=username%></video>
@@ -68,26 +70,7 @@
     <script src="/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
-  
-  function foo(){
      var videoicon= document.getElementById('videoicon')
-     var socket= socket= io('',{query: 'room='+name});
-    socket.on('chat message', function(msg){
-        // $( "#nm" ).remove();
-        var date=new Date().toLocaleString().split(',').join("");
-        var txt = '<li   class="ui large header"  style="width: 100%;">'+ msg[2]+  " : " + msg[0] + '<div id="date" style="  text-align: right;"><h5>'+date + "</h5></div>" +"</li>"
-        console.log(txt);
-        
-        $('#messages').append(txt);
-        // $('#nm').append($('<div id="date" class="ui tiny header">').text();
-        
-        console.log("chatuser"+user);
-      }); 
-    
-    
-  }
-  
-  
   function func(){
     
   var name = JSON.parse($('#n').text());
@@ -114,7 +97,7 @@ var peer = new Peer(vid_room,{ config: {'iceServers': [
    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
         navigator.getUserMedia({video: true, audio: true}, function(stream) {
           video2.srcObject=stream;
-            socket.emit('video', vid_room );
+            socket.emit('video', "" );
              videoicon.style.backgroundColor = "red";
         }, function(err) {
     console.log('Failed to get local stream' ,err);
@@ -134,7 +117,6 @@ var peer = new Peer(vid_room,{ config: {'iceServers': [
       
       
     });
-
     peer.on('connection', function(conn) {
       conn.on('data', function(data){
         // Will print 'hi!'
@@ -154,7 +136,6 @@ videoicon.style.backgroundColor = "red";
   }, function(err) {
     console.log('Failed to get local stream' ,err);
   });
-
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
   peer.on('call', function(call) {
     navigator.getUserMedia({video: true, audio: true}, function(stream) {
@@ -172,11 +153,9 @@ videoicon.style.backgroundColor = "red";
      
   }
   
-  
     $(function () {
-          var socket= socket= io('',{query: 'room='+name});
        var name = JSON.parse($('#n').text());
-    
+      var socket = io('',{query: 'room='+name});
         var user = JSON.parse($('#u').text());;
           var datetime
      
@@ -191,7 +170,7 @@ videoicon.style.backgroundColor = "red";
         $('#m').val('');
         return false;
       });
-       socket.on('chat message', function(msg){
+      socket.on('chat message', function(msg){
         // $( "#nm" ).remove();
         var date=new Date().toLocaleString().split(',').join("");
         var txt = '<li   class="ui large header"  style="width: 100%;">'+ msg[2]+  " : " + msg[0] + '<div id="date" style="  text-align: right;"><h5>'+date + "</h5></div>" +"</li>"
@@ -202,8 +181,8 @@ videoicon.style.backgroundColor = "red";
         
         console.log("chatuser"+user);
       });
-     
     });
   </script>
   </body>
 </html>
+
