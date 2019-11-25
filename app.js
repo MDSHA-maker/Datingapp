@@ -417,7 +417,22 @@ app.get('/logout',(req,res)=>
 
 //Create new user
 //Create new user
-app.post("/userprofiles/new",function(req,res){
+app.get("/newprem",(req,res)=>{
+    
+    res.render("newprem");
+})
+app.get("/newreg",(req,res)=>{
+    
+    res.render("newreg");
+})
+app.get("/instructions",(req,res)=>{
+    
+    res.render("instructions");
+})
+
+
+
+app.post("/newreg",function(req,res){
    var name=req.body.name;
    var image=req.body.image;
    var email=req.body.email;
@@ -450,7 +465,7 @@ app.post("/userprofiles/new",function(req,res){
    }
    if(errors.length>0){
       
-      res.render('new',{
+      res.render('newreg',{
          errors:errors
          
       });
@@ -463,7 +478,7 @@ app.post("/userprofiles/new",function(req,res){
          if(user){
             //user exists
             errors.push({msg:"Email is already register"})
-            res.render('new',{
+            res.render('newreg',{
          errors:errors
          
       } );
@@ -502,6 +517,94 @@ app.post("/userprofiles/new",function(req,res){
 
    
 }); 
+//createprem
+app.post("/newprem",function(req,res){
+   var name=req.body.name;
+   var image=req.body.image;
+   var email=req.body.email;
+   var age=req.body.age;
+   var password=req.body.password;
+   var password2=req.body.password2;
+   var gender=req.body.gender;
+   var ethnicity=req.body.ethnicity;
+   var height=req.body.height;
+   var zipcode=req.body.zipcode;
+    var bodytype=req.body.bodytype;
+   var errors=[];
+
+  //console.log(req.body);
+   if(!name||!email||!password||!password2)
+   {
+      errors.push({msg:'Please fill in all fields'});
+      
+      
+   }
+   if(password!=password2)
+   {
+      errors.push({msg:'Passwords do not match'});
+      
+      
+   }
+   if(password<8){
+      errors.push({msg:"Passwords must be greater than 6 characters"});
+      
+   }
+   if(errors.length>0){
+      
+      res.render('newprem',{
+         errors:errors
+         
+      });
+   }
+   
+   else {
+      //Validation passed
+      users.findOne({email:email}).then(user=>{
+         
+         if(user){
+            //user exists
+            errors.push({msg:"Email is already register"})
+            res.render('newprem',{
+         errors:errors
+         
+      } );
+         }
+      
+      else{//res.redirect("/userprofiles");
+         
+         
+         var newUser =new users({name:name,email:email,password:password,image:image,gender:gender,bodytype:bodytype,age:age,ethnicity:ethnicity,height:height,zipcode:zipcode});
+         //Hash password
+         bcrypt.genSalt(10,(err,salt)=>
+         bcrypt.hash(newUser.password,salt,(err,hash)=>
+         {
+            if (err) throw err;
+            newUser.password=hash;
+            newUser.save().then(
+               user=>{
+                  req.flash('success_msg','You are now registered!');
+                  console.log('success_msg')
+                  res.redirect("/");
+               }
+               
+               
+               ).catch(err=>console.log(err));
+         }
+         
+         ))
+      }
+      
+     
+      })
+      
+    
+   }
+   
+
+   
+}); 
+
+
 //create user page get request
 
 app.get("/userprofiles/new",function(req,res){//must be declearead first
