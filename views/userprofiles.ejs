@@ -86,10 +86,10 @@
             </select>
                <select class="ui form-group dropdown" name="height" placeholder="height" type="text">
               <option value="default">Height</option>
-              <option value=160>Above 160cm</option>
-              <option value=165>Above 165cm</option>
-               <option value=170>Above 170cm</option>
-              <option value=180>Above 180cm</option>
+              <option value=152>Above 5 feet</option>
+              <option value=165>Above 5'5"</option>
+               <option value=173>Above 5'8"<option>
+              <option value=183>Above 6'</option>
             </select>
      
         
@@ -109,7 +109,7 @@
            <div class="ui large header"><%=currentuser.name%></div>
            <div class="ui medium header">Age: <span><%=currentuser.age%></span></div>
             <div class="ui medium header">Gender: <span><%=currentuser.gender%></span></div>
-           <div class="ui medium header">Height: <span><%=currentuser.height%></span> cm</div>
+       <div class="ui medium header">Height: <span><%=parseInt(currentuser.height)/30%></span> Feet </div>
             <div class="ui medium header">Ethnicity: <span ><%=currentuser.ethnicity%></span></div>
              <div class="ui medium header">Bodytype: <span ><%=currentuser.bodytype%></span></div>
              

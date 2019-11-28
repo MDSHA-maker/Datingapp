@@ -1,4 +1,4 @@
-<% include partials/header2%>
+<% include partials/header%>
 
 <head>
   <meta charset="utf-8">
@@ -25,7 +25,7 @@
         // encrypted payment information in a variable called a payment method nonce
         $.ajax({
           type: 'POST',
-          url: '/payment',
+          url: '/payment2',
           data: {'paymentMethodNonce': payload.nonce}
         }).done(function(result) {
           // Tear down the Drop-in UI
@@ -42,7 +42,7 @@
           if (result.success) {
             
             $('#checkout-message').html('<h1>Success</h1><p> Check your <a href="https://sandbox.braintreegateway.com/login">sandbox Control Panel</a> for your test transactions.</p><p>Refresh to try another transaction.</p>');
-            window.location = '/userprofiles';
+            window.location = '/newprem2';
           } else {
             console.log(result);
             $('#checkout-message').html('<h1>Error</h1><p>Payment not accepted</p>');

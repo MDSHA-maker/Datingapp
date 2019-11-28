@@ -11,7 +11,7 @@
            <div class="ui large header"><%=userclicked.name%></div>
            <div class="ui medium header">Age: <span><%=userclicked.age%></span></div>
             <div class="ui medium header">Gender: <span><%=userclicked.gender%></span></div>
-           <div class="ui medium header">Height: <span><%=userclicked.height%> </span>cm</div>
+               <div class="ui medium header">Height: <span><%=parseInt(userclicked.height)/30%></span> Feet </div>
             <div class="ui medium header">Ethnicity: <span ><%=userclicked.ethnicity%></span></div>
              <div class="ui medium header">Bodytype: <span ><%=userclicked.bodytype%></span></div>
              <% if(userclicked.isPremium) {%>
@@ -31,9 +31,7 @@
    <form action="/viodecall" method="POST">
        
        <input name="clickeduser" value="<%=userclicked.id%>" hidden>
-            <button class="ui red huge button" type="submit" style="margin:10px 0px auto">
-                         Video Call
-            </button>
+           
     
     </form>
             </div>
@@ -66,7 +64,7 @@
          </div>
 </div>
 
-<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
 
         
 <script>

@@ -9,24 +9,64 @@
     
     <div class="form-group">
         <input class="form-control" type="text" name="name" placeholder="name"  required>
-      
+      </div>
 
     <div class="form-group">
          <input class="form-control" type="text" name="age"  placeholder="age" required>
          
      </div>
      
-    <div class="form-group">
-         <input class="form-control" type="text" name="height"  placeholder="height(in cm)" required>
-         
+    <div>
+            <select class="ui form-group dropdown" name="feet" id="feet" placeholder="feet" type="number" required>
+              <option value=0>Feet</option>
+              <option value=1>1</option>
+              <option value=2>2</option>
+               <option value=3>3</option>
+              <option value=4>4</option>
+              <option value=5>5</option>
+              <option value=6>6</option>
+              <option value=7>7</option>
+              <option value=8>8</option>
+            </select>
+               <select class="ui form-group dropdown" name="inch" id="inch" placeholder="inch" type="number" required>
+              <option value=0>Inch</option>
+            <option value=1>1</option>
+              <option value=2>2</option>
+               <option value=3>3</option>
+              <option value=4>4</option>
+              <option value=5>5</option>
+              <option value=6>6</option>
+              <option value=7>7</option>
+              <option value=8>8</option>
+              <option value=9>9</option>
+              <option value=10>10</option>
+              <option value=11>11</option>
+              <option value=12>12</option>
+            </select>
+            
      </div>
       <div class="form-group">
          <input class="form-control" type="text" name="zip"  placeholder="zip" required>
          
      </div>
+      <div class="form-group">
+         <input class="form-control" type="text" name="hobbies"  placeholder="Write down some hobbies" required>
+         
+     </div>
+      <div class="form-group">
+           <div class="ui input">
+            <select class="ui form-group dropdown" name="interests" placeholder="Looking for" type="text" required>
+                <option value="default">Looking for</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+               <option value="Transgender">Transgender</option>
+            </select>
+     </div>
+       
+     </div>
      
-    <button class="btn btn-md btn-default btn-block">
-        Create
+    <button class="ui container inverted green button">
+        Update
     </button>
     
 </form>

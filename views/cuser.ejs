@@ -1,0 +1,133 @@
+<% include partials/header2%>
+
+
+<div>
+
+    
+    <header class="jumbotron">
+        <div class="ui container grid">
+    <div class="ten wide row">      
+    <h1>Welcome <span><%=currentuser.name%></span></h1>
+     <div class="container" style="margin:10px 10px 10px 20px">
+      <div>
+        <% if(currentuser.isPremium){ %>
+          <div class="ui container medium header red ">
+             <h2>
+             
+              </h2> 
+          </div>
+            
+        <% } %>
+        <% if(!currentuser.isPremium){ %>
+          <div class="ui container">
+               <a class="ui huge inverted red button" href="/payment" >
+             
+             Upgrade to Premium
+             </a>
+          </div>
+        <% } %>
+      
+    </div>
+       <div>
+        <% if(currentuser.isGroomed){ %>
+          <div class="ui container medium header red ">
+              
+              <!--Congrats you received training!!!-->
+              
+          </div>
+            
+        <% } %>
+        <% if(!currentuser.isGroomed){ %>
+          <div class="ui container">
+             <a class="ui huge inverted green button" href="/groom" style="margin:10px 10px 10px 20px">Get Groomed!</a>
+          </div>
+        <% } %>
+      
+    </div>
+            
+        
+     </div>      
+    
+     </div>
+     </div> 
+       
+     <div class="ui container six wide row"></div>
+      
+    </header>
+</div>
+<div class="ui grid" >
+  
+  <div class="ui sticky six wide column">
+      
+        <img class="ui container fluid image" src="/uploads/<%=currentuser.image[0]%>">  
+        
+       <div class="container" style="margin:10px 10px 10px 10px;" >
+           
+           <div class="ui large header"><%=currentuser.name%></div>
+           <div class="ui medium header">Age: <span><%=currentuser.age%></span></div>
+            <div class="ui medium header">Gender: <span><%=currentuser.gender%></span></div>
+           <div class="ui medium header">Height: <span><%=parseInt(currentuser.height)/30%></span> Feet </div>
+            <div class="ui medium header">Ethnicity: <span ><%=currentuser.ethnicity%></span></div>
+             <div class="ui medium header">Bodytype: <span ><%=currentuser.bodytype%></span></div>
+                <div class="ui medium header">Hobbies: <span ><%=currentuser.hobbies%></span></div>
+                   <div class="ui medium header">Looking for: <span ><%=currentuser.interests%></span></div>
+       </div>
+       <div class="container">
+            <form action="/update/" method="GET">
+         <button type="submit" style="margin:10px 0px auto">Update Info</button>
+      </form>
+          <form action="/uploads/" method="GET">
+         <button type="submit" style="margin:10px 0px auto">See Your Photos</button>
+      </form>
+      <form action="/userprofiles" method="GET">
+         <button type="submit" style="margin:10px 0px auto">Search</button>
+      </form>
+       </div>
+  </div>
+  <div class="ten wide column">
+            <div class="ui grid" >
+                
+  
+               <%currentuser.image.forEach(function(photos){%>
+              
+               <%if(photos.includes("myImage")){%>
+                          
+                                 <svg width="400" height="300">
+                                <image xlink:href="/uploads/<%=photos%>"  width="100%" height="100%"></image>
+                                </svg>
+                             
+             <% } } );%>
+
+         
+            
+                  
+               
+                
+                            
+                   
+
+                
+            </div>
+  
+  
+  
+  </div>
+
+</div>
+
+
+</div>
+
+    <% include partials/footer %>
+    
+      <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script>
+        
+        
+        
+        
+        
+        
+        
+        
+    </script>

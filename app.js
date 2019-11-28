@@ -166,14 +166,17 @@ criteriahere=new criteria("default","default","default","default");
 app.post("/users/login",(req,res,next)=>
 {
   passport.authenticate('local', {
-    successRedirect: '/userprofiles',
+    successRedirect: '/cuser',
     failureRedirect: '/users/login',
     failureFlash: true
   })(req, res, next); 
 });
 
-        
+app.get("/cuser",ensureAuthenticated,(req,res)=>{
     
+      res.render("cuser",{currentuser:req.user,criteria:criteriahere});
+    
+});
 
     // users.find({"name":req.body.name,"email":req.body.email,"password":req.body.password,"gender":req.body.gender,"bodytype":req.body.bodytype,"age":req.body.age,"ethnicity":req.body.ethnicity,"height":req.body.height,"zipcode":req.body.zipcode},function(err,obj) { 
     //     console.log("found")
@@ -418,8 +421,12 @@ app.get('/logout',(req,res)=>
 //Create new user
 //Create new user
 app.get("/newprem",(req,res)=>{
-    
-    res.render("newprem");
+    res.render("payment2")
+ //   
+})
+app.get("/newprem2",(req,res)=>{
+   // res.render("payment2")
+   res.render("newprem");
 })
 app.get("/newreg",(req,res)=>{
     
@@ -441,11 +448,20 @@ app.post("/newreg",function(req,res){
    var password2=req.body.password2;
    var gender=req.body.gender;
    var ethnicity=req.body.ethnicity;
-   var height=req.body.height;
+   var feet=req.body.feet;
+     var inch=req.body.inch;
+     console.log(feet+" "+inch)
+     feet=feet*12;
+     console.log(feet)
+     inch=parseInt(feet) + parseInt(inch);
+     console.log(inch)
+     console.log(inch*2.54);
+   var height=inch*2.54;
+   console.log(height);
    var zipcode=req.body.zipcode;
     var bodytype=req.body.bodytype;
    var errors=[];
-
+//while(1)
   //console.log(req.body);
    if(!name||!email||!password||!password2)
    {
@@ -494,8 +510,10 @@ app.post("/newreg",function(req,res){
          {
             if (err) throw err;
             newUser.password=hash;
+            console.log(newUser)
             newUser.save().then(
                user=>{
+                   
                   req.flash('success_msg','You are now registered!');
                   console.log('success_msg')
                   res.redirect("/");
@@ -517,6 +535,15 @@ app.post("/newreg",function(req,res){
 
    
 }); 
+
+app.get("/sugardaddies",(req,res)=>{
+    
+    res.render("sugardaddies");
+})
+app.get("/sugarbabbies",(req,res)=>{
+    
+    res.render("sugarbabbies");
+})
 //createprem
 app.post("/newprem",function(req,res){
    var name=req.body.name;
@@ -527,9 +554,18 @@ app.post("/newprem",function(req,res){
    var password2=req.body.password2;
    var gender=req.body.gender;
    var ethnicity=req.body.ethnicity;
-   var height=req.body.height;
+   var feet=req.body.feet;
+     var inch=req.body.inch;
+     console.log(feet+" "+inch)
+     feet=feet*12;
+     console.log(feet)
+     inch=parseInt(feet) + parseInt(inch);
+     console.log(inch)
+     console.log(inch*2.54);
+   var height=inch*2.54;
    var zipcode=req.body.zipcode;
     var bodytype=req.body.bodytype;
+    var payment=true;
    var errors=[];
 
   //console.log(req.body);
@@ -573,7 +609,7 @@ app.post("/newprem",function(req,res){
       else{//res.redirect("/userprofiles");
          
          
-         var newUser =new users({name:name,email:email,password:password,image:image,gender:gender,bodytype:bodytype,age:age,ethnicity:ethnicity,height:height,zipcode:zipcode});
+         var newUser =new users({name:name,email:email,password:password,image:image,gender:gender,bodytype:bodytype,age:age,ethnicity:ethnicity,height:height,zipcode:zipcode,isPremium:true});
          //Hash password
          bcrypt.genSalt(10,(err,salt)=>
          bcrypt.hash(newUser.password,salt,(err,hash)=>
@@ -1031,6 +1067,49 @@ app.post('/payment',ensureAuthenticated,function(req,res){
    // console.log(value);
   });
   
+  //payment2
+  app.post('/payment2',function(req,res){
+  // Use the payment method nonce here
+  console.log("made it here")
+ // var value=false;
+//var xd=req.user;
+//console.log(xd);
+    var nonceFromTheClient = req.body.paymentMethodNonce
+     console.log(nonceFromTheClient);
+    var newTransaction = gateway.transaction.sale({
+      amount: '10.00',
+      paymentMethodNonce: nonceFromTheClient,
+      options: {
+        // This option requests the funds from the transaction
+        // once it has been authorized successfully
+        submitForSettlement: true
+        
+        
+      }
+    }, function(error, result) {
+        if (result.success) {
+          console.log("result is success" );
+          res.send(result);
+          
+          //req.user.isPremium=true;
+         
+      }
+        else {
+               req.user.isPremium=false;
+          console.log("result failed");
+        }
+      //  res.redirect("/userprofiles");
+    });
+   // console.log(value);
+  });
+  
+  
+  
+  
+  
+  
+  
+  
   
   
 //update route
@@ -1043,8 +1122,16 @@ app.get("/update",ensureAuthenticated,(req,res)=>{
 
 app.post("/update",ensureAuthenticated,(req,res)=>{
     //res.render("update");
-     
-     users.findByIdAndUpdate(req.user.id,{"height":req.body.height,"name":req.body.name,"zip":req.body.zip,"age":req.body.age},{new: true},function(err,updateduser){
+      var feet=req.body.feet;
+     var inch=req.body.inch;
+     console.log(feet+" "+inch)
+     feet=feet*12;
+     console.log(feet)
+     inch=parseInt(feet) + parseInt(inch);
+     console.log(inch)
+     console.log(inch*2.54);
+   var height=inch*2.54;
+     users.findByIdAndUpdate(req.user.id,{"height":height,"name":req.body.name,"zip":req.body.zip,"age":req.body.age,"hobbies":req.body.hobbies,"interests":req.body.interests},{new: true},function(err,updateduser){
         
         if(err)
         {
@@ -1052,7 +1139,7 @@ app.post("/update",ensureAuthenticated,(req,res)=>{
         }
         else
         {
-        res.redirect("/userprofiles");
+        res.redirect("/cuser");
             
         }
         

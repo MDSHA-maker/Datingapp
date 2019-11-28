@@ -38,7 +38,13 @@ var UserSchema=new mongoose.Schema({
    zipcode: {type:Number,   default: 62901},
    visited: {type:[String],default:''},
    isPremium: { type: Boolean, default: false },
-   isGroomed: { type: Boolean, default: false }
+   isGroomed: { type: Boolean, default: false },
+   hobbies:{type:String,
+         default: ''
+   },
+   interests:{type:String,
+         default: ''
+   }
    
 });
 module.exports=mongoose.model("users",UserSchema);
