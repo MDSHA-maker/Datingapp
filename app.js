@@ -1104,7 +1104,24 @@ app.post('/payment',ensureAuthenticated,function(req,res){
   });
   
   
-  
+ app.get("/freetour",(req,res)=>{
+     
+     users.find({},function(err,allusers){
+      if(err){
+         console.log(err);
+      }
+      else
+      {//console.log(parseInt(//criteria['age']));
+     // currentuser=req.user;
+            console.log(criteriahere)
+           res.render("freetour",{users:allusers});
+         
+      }
+      
+      
+   });
+     
+ }); 
   
   
   

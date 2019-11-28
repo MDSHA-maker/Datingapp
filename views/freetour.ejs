@@ -1,0 +1,76 @@
+ <!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Elite Consorts</title>
+        
+     <!-- Latest compiled and minified CSS -->
+       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+          <link href="https://fonts.googleapis.com/css?family=Lato|Questrial&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!--<link rel="stylesheet" type="text/css" href="/stylesheet/landing.css">-->
+    
+    </head>
+<body style="font-family: 'Lato', sans-serif;">
+    
+  <nav class="navbar navbar-default navbar-fixed-top" style=" background-color:	#F0E68C;   ">
+    
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Elite Consorts</a>
+        </div>
+   
+    <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+         
+        </ul>
+        </div>
+    </div>
+</nav>
+
+
+  <div style="padding-bottom: 100px;">
+    
+    
+</div>
+
+ 
+ <div class="ui grid" >
+                
+
+         
+            
+                  
+                <%users.forEach(function(user){%>
+                        
+                         <div class="ui card container">
+                             <div class="ui medium fluid rounded image">
+                                 
+                                <svg width="150" height="150">
+                                <image xlink:href="/uploads/<%=user.image[0]%>"  width="100%" height="100%"></image>
+                                </svg>
+                                </div>
+                                <div class="ui huge header">
+                                    Age: <span><%=user.age%></span> 
+                                    </div>
+                                    <div>
+                                    Ethnicity: <span><%=user.ethnicity%></span> 
+                                    </div>
+                             
+                              
+                                   <div>
+                              
+                            <div class="ui container">
+                            <h3> <%=user.name%> </h3>
+                               </div>
+                      
+                        </div>
+                         
+                         </div>
+                     <% });%>
+
+                
+  
+  
+  
+  
