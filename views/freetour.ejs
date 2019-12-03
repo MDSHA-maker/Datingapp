@@ -34,42 +34,135 @@
     
 </div>
 
- 
- <div class="ui grid" >
+  <div class="ui container six wide row">
+       <div  style="margin:50px 50px 10px 20px">
+          <span class="ui medium header">
+            Filter by:
+          </span>
+    
+         
+         
+            <select id="gender" class="ui form-group dropdown" name="gender" placeholder="gender" type="text">
+              <option value="default">Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+                      <option value="Transgender">Transgender</option>
+            </select>
+     
+  
+     
+            <select id="ethnicity" class="ui form-group dropdown" name="ethnicity" placeholder="ethnicity" type="text">
+              <option value="default">Ethnicity</option>
+              <option value="Asian">Asian</option>
+              <option value="Hispanic">Hispanic</option>
+               <option value="Latina">Latina</option>
+              <option value="Black">Black</option>
+            </select>
+     
+          
+            <select id="age" class="ui form-group dropdown" name="age" placeholder="age" type="text">
+              <option value="default">Age</option>
+              <option value=21>Below 21</option>
+              <option value=30>Below 30</option>
+               <option value=35>Below 35</option>
+              <option value=40>Below 40</option>
+            </select>
+               <select id="height" class="ui form-group dropdown" name="height" placeholder="height" type="text">
+              <option value="default">Height</option>
+              <option value=160>Above 160cm</option>
+              <option value=165>Above 165cm</option>
+               <option value=170>Above 170cm</option>
+              <option value=180>Above 180cm</option>
+            </select>
+     
+        
+         <button class="ui huge inverted blue button" onclick="func()">Apply</button>
+               <button class="ui huge inverted blue button" onclick="func1()">Refresh</button>
+     </div>
+ <div class="ui grid" id="demo"></div>
                 
 
          
             
                   
-                <%users.forEach(function(user){%>
-                        
-                         <div class="ui card container">
-                             <div class="ui medium fluid rounded image">
-                                 
-                                <svg width="150" height="150">
-                                <image xlink:href="/uploads/<%=user.image[0]%>"  width="100%" height="100%"></image>
-                                </svg>
-                                </div>
-                                <div class="ui huge header">
-                                    Age: <span><%=user.age%></span> 
-                                    </div>
-                                    <div>
-                                    Ethnicity: <span><%=user.ethnicity%></span> 
-                                    </div>
-                             
-                              
-                                   <div>
-                              
-                            <div class="ui container">
-                            <h3> <%=user.name%> </h3>
-                               </div>
-                      
-                        </div>
-                         
-                         </div>
-                     <% });%>
+           
 
-                
+                    <% include partials/footer %>
+                <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script>
+   var name;
+   var rows;
+  var age,gender,ethnicity,height;
+   $(function (){
+
+ rows =<%-JSON.stringify(users)%>
+    $('#age').val('default');
+                $('#gender').val('default');
+                        $('#height').val('default');
+                                $('#ethnicity').val('default');
+ func();
+ // console.log(rows[0]);
+//  for ( var i = 0, l = rows.length; i < l; i++) {
+//     $.each(rows[i], function( index, value ) {
+//  console.log( index + ": " + value );
+// });
+// }
+
+   });
+
+        
+        function func(){
+            
+             
+    age=$('#age').val()
+        gender=$('#gender').val()
+         ethnicity=$('#ethnicity').val()
+         height=$('#height').val()
+          var content ="";
+   for ( var i = 0, l = rows.length; i < l; i++) {
+       var flag=0;
+    $.each(rows[i], function( index, value ) {
+       // console.log(rows[i].gender);
+      if((gender=="default"||rows[i].gender==gender)&&(ethnicity=="default"||rows[i].ethnicity==ethnicity)&&(age=="default"||rows[i].age>=age)&&(height=="default"||rows[i].height<=height))
+ { 
+     flag=1;
+     
+    // console.log( rows[i].gender);
+     
+     
+ }
+
+});
+if(flag==1){ content  =content+ '<div class="five wide column"><div "ui card container"> <div class="ui medium fluid rounded image">  <svg width="150" height="150"> <image xlink:href="/uploads/'+rows[0].image[0]+'" width="100%" height="100%"></image></svg></div>'+
+'    <div class="ui huge header"> Name: <span>'+rows[i].name +'</span> </div>'+
+'    <div class="ui huge header"> Age: <span>'+rows[i].age +'</span> </div>'+
+'    <div class="ui huge header"> Gender: <span>'+rows[i].gender +'</span> </div>'+
+'  <div class="ui huge header"> Ethnicity: <span>'+rows[i].ethnicity +'</span> </div></div></div>';
+ $('#demo').html(content)}
+}
+
+            
+ //    console.log(gender)
+            
+            
+        }
+           
+        function func1(){
+            
+             
+        $('#age').val('default');
+                $('#gender').val('default');
+                        $('#height').val('default');
+                                $('#ethnicity').val('default');
+ // console.log(gender)
+    
+                 
+            func();
+            
+        }
+
+        
+</script>
   
   
   

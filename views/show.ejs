@@ -11,7 +11,7 @@
            <div class="ui large header"><%=userclicked.name%></div>
            <div class="ui medium header">Age: <span><%=userclicked.age%></span></div>
             <div class="ui medium header">Gender: <span><%=userclicked.gender%></span></div>
-               <div class="ui medium header">Height: <span><%=parseInt(userclicked.height)/30%></span> Feet </div>
+              <div class="ui medium header">Height: <span><%=parseInt(userclicked.height/30)%></span>'<span><%=parseInt((parseInt(userclicked.height)-parseInt(parseInt(userclicked.height/30)*30))*0.39)%></span> "  </div>
             <div class="ui medium header">Ethnicity: <span ><%=userclicked.ethnicity%></span></div>
              <div class="ui medium header">Bodytype: <span ><%=userclicked.bodytype%></span></div>
              <% if(userclicked.isPremium) {%>
@@ -63,7 +63,7 @@
              
          </div>
 </div>
-
+    <% include partials/footer %>
 <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
 
         

@@ -50,7 +50,6 @@
     
      </div>
      </div> 
-       
      <div class="ui container six wide row">
        <div  style="margin:50px 50px 10px 20px">
           <span class="ui medium header">
@@ -86,10 +85,10 @@
             </select>
                <select class="ui form-group dropdown" name="height" placeholder="height" type="text">
               <option value="default">Height</option>
-              <option value=152>Above 5'</option>
-              <option value=165>Above 5'5"</option>
-               <option value=173>Above 5'8"<option>
-              <option value=183>Above 6'</option>
+              <option value=160>Above 160cm</option>
+              <option value=165>Above 165cm</option>
+               <option value=170>Above 170cm</option>
+              <option value=180>Above 180cm</option>
             </select>
      
         
@@ -116,6 +115,10 @@
        </div>
      
   </div>
+  <div id="test" hidden>
+     <%=JSON.stringify(users)%>
+
+  </div>
   <div class="ten wide column">
             <div class="ui grid" >
                 
@@ -124,6 +127,7 @@
             
                   
                 <%users.forEach(function(user){%>
+            
                 <%if(currentuser.id!=user.id){ %>
              
                <%if((criteria.gender=="default"||criteria.gender==user.gender)&&(criteria.ethnicity=="default"||criteria.ethnicity==user.ethnicity)&&(criteria.age=="default"||criteria.age>=user.age)&&(criteria.height=="default"||criteria.height<=user.height)){%>
@@ -191,12 +195,46 @@
     
       <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
+  var name;
+  var age,gender,ethnicity,height;
+   $(function (){
+          name = JSON.parse($('#test').text());
+         
+      $.each(name, function(user) {
+        console.log(name)
+});
+
+   });
+
         
-        
-        
-        
-        
-        
-        
+        function func(){
+            
+             
+    age=$('#age').val()
+        gender=$('#gender').val()
+         ethnicity=$('#ethnicity').val()
+         height=$('#height').val()
+
+     
+            
+            
+        }
+           
+        function func1(){
+            
+             
+        $('#age').val('default');
+                $('#gender').val('default');
+                        $('#height').val('default');
+                                $('#ethnicity').val('default');
+  
+    
+                 
+            func();
+            
+        }
+
         
     </script>
+    
+    

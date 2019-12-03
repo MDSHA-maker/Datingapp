@@ -183,9 +183,25 @@ app.get("/cuser",ensureAuthenticated,(req,res)=>{
     //     console.log(obj); });
     
     
+//footer pages    
     
+app.get("/faq",(req,res)=>{
+    res.render("faq");
+})
     
-    
+    app.get("/tog",(req,res)=>{
+    res.render("tog");
+})
+   
+   app.get("/pp",(req,res)=>{
+    res.render("pp");
+})
+      app.get("/ms",(req,res)=>{
+    res.render("ms");
+})
+   app.get("/pi",(req,res)=>{
+    res.render("pi");
+})
     
 
 //updateing serach

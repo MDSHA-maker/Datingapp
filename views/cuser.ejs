@@ -66,7 +66,7 @@
            <div class="ui large header"><%=currentuser.name%></div>
            <div class="ui medium header">Age: <span><%=currentuser.age%></span></div>
             <div class="ui medium header">Gender: <span><%=currentuser.gender%></span></div>
-           <div class="ui medium header">Height: <span><%=parseInt(currentuser.height)/30%></span> Feet </div>
+           <div class="ui medium header">Height: <span><%=parseInt(currentuser.height/30)%></span>'<span><%=parseInt((parseInt(currentuser.height)-parseInt(parseInt(currentuser.height/30)*30))*0.39)%></span> "  </div>
             <div class="ui medium header">Ethnicity: <span ><%=currentuser.ethnicity%></span></div>
              <div class="ui medium header">Bodytype: <span ><%=currentuser.bodytype%></span></div>
                 <div class="ui medium header">Hobbies: <span ><%=currentuser.hobbies%></span></div>
