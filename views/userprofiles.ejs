@@ -62,7 +62,8 @@
               <option value="default">Gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
-                      <option value="Transgender">Transgender</option>
+                      <option value="Transgender">Post-Op Trans</option>
+               <option value="Transgender">Pre-Op Trans</option>
             </select>
      
   
@@ -97,29 +98,9 @@
      </div>
     </header>
 </div>
-<div class="ui grid" >
+<div  >
   
-  <div class="ui sticky six wide column">
-      
-        <img class="ui container fluid image" src="/uploads/<%=currentuser.image[0]%>">  
-        
-       <div class="container" style="margin:10px 10px 10px 10px;" >
-           
-           <div class="ui large header"><%=currentuser.name%></div>
-           <div class="ui medium header">Age: <span><%=currentuser.age%></span></div>
-            <div class="ui medium header">Gender: <span><%=currentuser.gender%></span></div>
-       <div class="ui medium header">Height: <span><%=parseInt(currentuser.height)/30%></span> Feet </div>
-            <div class="ui medium header">Ethnicity: <span ><%=currentuser.ethnicity%></span></div>
-             <div class="ui medium header">Bodytype: <span ><%=currentuser.bodytype%></span></div>
-             
-       </div>
-     
-  </div>
-  <div id="test" hidden>
-     <%=JSON.stringify(users)%>
-
-  </div>
-  <div class="ten wide column">
+  <div >
             <div class="ui grid" >
                 
 
@@ -131,7 +112,7 @@
                 <%if(currentuser.id!=user.id){ %>
              
                <%if((criteria.gender=="default"||criteria.gender==user.gender)&&(criteria.ethnicity=="default"||criteria.ethnicity==user.ethnicity)&&(criteria.age=="default"||criteria.age>=user.age)&&(criteria.height=="default"||criteria.height<=user.height)){%>
-                    <div class="five wide column">
+                    <div class="four wide column">
                          <div class="ui card container">
                              <div class="ui medium fluid rounded image">
                                  
@@ -191,7 +172,7 @@
 
 </div>
 
-    <% include partials/footer %>
+  
     
       <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
@@ -237,4 +218,4 @@
         
     </script>
     
-    
+      <% include partials/footer %>
