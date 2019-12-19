@@ -10,7 +10,9 @@
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <!--<link rel="stylesheet" type="text/css" href="/stylesheet/landing.css">-->
              <link href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap" rel="stylesheet">
-
+<!-- In <head> -->
+<link rel='stylesheet' href='https://cdn.rawgit.com/leongersen/noUiSlider/master/distribute/nouislider.min.css'>
+<link rel='stylesheet' href='https://cdn.rawgit.com/Dispute-Bills/wnumb/master/noui-pips.css'>
     </head>
 <body style="font-family: 'Lato', sans-serif;">
     
@@ -43,7 +45,7 @@
           <span class="ui medium header">
             Filter by:
           </span>
-    
+ 
          
          
             <select id="gender" class="ui form-group dropdown" name="gender" placeholder="gender" type="text">
@@ -63,23 +65,28 @@
                <option value="Latina">Latina</option>
               <option value="Black">Black</option>
             </select>
-     
-          
-            <select id="age" class="ui form-group dropdown" name="age" placeholder="age" type="text">
-              <option value="default">Age</option>
-              <option value=21>Below 21</option>
-              <option value=30>Below 30</option>
-               <option value=35>Below 35</option>
-              <option value=40>Below 40</option>
-            </select>
-               <select id="height" class="ui form-group dropdown" name="height" placeholder="height" type="text">
-              <option value="default">Height</option>
-              <option value=160>Above 160cm</option>
-              <option value=165>Above 165cm</option>
-               <option value=170>Above 170cm</option>
-              <option value=180>Above 180cm</option>
-            </select>
-     
+             <div class="ui container grid "
+             
+             style=" padding: 20px 0px;">
+                 <p >Age:</p>
+             <p id="slider" style="width:300px;"></p>
+              <p>Height:</p>
+               <p id="slider1" style="width:300px;"></p>
+                     </div>
+        
+        <div class="ui container grid "
+             
+             style=" padding: 20px 0px;">
+                 <p >MinAge:</p>
+                 <p id="minAge"></p>
+                 
+             <p >MaxAge:</p>
+                 <p id="maxAge"></p>
+              <p>MinHeight:</p>
+                  <p id="minHeight"></p>
+                   <p>MaxHeight:</p>
+                  <p id="maxHeight"></p>
+                     </div>
         
          <button class="ui huge inverted blue button" onclick="func()">Apply</button>
                <button class="ui huge inverted blue button" onclick="func1()">Refresh</button>
@@ -93,17 +100,59 @@
            
 
                     <% include partials/footer %>
+                  <script src='https://cdn.rawgit.com/Dispute-Bills/wnumb/master/wNumb.js'></script>
+<script src='https://cdn.rawgit.com/leongersen/noUiSlider/master/distribute/nouislider.min.js'></script>
+
                 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
    var name;
    var rows;
-  var age,gender,ethnicity,height;
+  var age,gender,ethnicity,minAge,maxAge,minHeight,maxHeight,height;
+  var slider = document.getElementById('slider');
+    var slider1 = document.getElementById('slider1');
    $(function (){
-
+noUiSlider.create(slider, {
+    start: [18,50],
+    connect: true,
+    step: 1,
+    range: {
+        'min': 18,
+        'max': 50
+    }
+});
+noUiSlider.create(slider1, {
+    start: [150,190],
+    connect: true,
+    step: 1,
+    range: {
+        'min': 150,
+        'max': 190
+    }
+});
+slider.noUiSlider.on('update', function(values, handle) {
+    var mstring=parseInt(values[0])+"yrs";
+    var mastring=parseInt(values[1])+"yrs";
+     $("#minAge").text(mstring);
+        $("#maxAge").text(mastring);
+        
+    console.log("first value:"+values[0]);// value for updated handle is in values[handle]
+    console.log("second value:"+values[1]);
+});
+slider1.noUiSlider.on('update', function(values, handle) {
+    var minstring=parseInt(values[0]/30)+"'"+parseInt((parseInt(values[0])-parseInt(parseInt(values[0]/30)*30))*0.39)+"\"";
+      var maxstring=parseInt(values[1]/30)+"'"+parseInt((parseInt(values[1])-parseInt(parseInt(values[1]/30)*30))*0.39)+"\"";
+     $("#minHeight").text(minstring);
+        $("#maxHeight").text(maxstring);
+        
+    console.log("first value:"+values[0]);// value for updated handle is in values[handle]
+    console.log("second value:"+values[1]);
+});
  rows =<%-JSON.stringify(users)%>
-    $('#age').val('default');
+    $('#minAge').val('default');
+        $('#maxAge').val('default');
                 $('#gender').val('default');
-                        $('#height').val('default');
+                        $('#minHeight').val('default');
+                         $('#maxHeight').val('default');
                                 $('#ethnicity').val('default');
  func();
  // console.log(rows[0]);
@@ -117,28 +166,43 @@
 
         
         function func(){
-            
-             
-    age=$('#age').val()
+             $('#minAge').val('default');
+        $('#maxAge').val('default');
+            //    $('#gender').val('default');
+                        $('#minHeight').val('default');
+                         $('#maxHeight').val('default');
+                          //      $('#ethnicity').val('default');
+            // console.log(slider.noUiSlider.get());
+         var ageui=   slider.noUiSlider.get();
+             var heightui=   slider1.noUiSlider.get();
+  minAge =ageui[0];
+  maxAge =ageui[1];
+  
+  minHeight =heightui[0];
+  maxHeight=heightui[1];
+    maxHeight =$('#maxHeight').val()
         gender=$('#gender').val()
          ethnicity=$('#ethnicity').val()
-         height=$('#height').val()
+    //     height=$('#height').val()
           var content ="";
    for ( var i = 0, l = rows.length; i < l; i++) {
        var flag=0;
     $.each(rows[i], function( index, value ) {
        // console.log(rows[i].gender);
-      if((gender=="default"||rows[i].gender==gender)&&(ethnicity=="default"||rows[i].ethnicity==ethnicity)&&(age=="default"||rows[i].age>=age)&&(height=="default"||rows[i].height<=height))
+      if((gender=="default"||rows[i].gender==gender)&&(ethnicity=="default"||rows[i].ethnicity==ethnicity)&&(rows[i].age>=minAge&&rows[i].age<=maxAge)&&(rows[i].height>=minHeight&&rows[i].height<=maxHeight))
  { 
      flag=1;
      
-    // console.log( rows[i].gender);
+     
+     console.log( "flag one");
      
      
  }
 
 });
-if(flag==1){ content  =content+ '<div class="four wide column"><div "ui card container"> <div class="ui medium fluid rounded image">  <svg width="150" height="150"> <image xlink:href="/uploads/'+rows[0].image[0]+'" width="100%" height="100%"></image></svg></div>'+
+if(flag==1){
+    console.log("images:"+rows[0].image[0]);
+    content  =content+ '<div class="four wide column"><div "ui card container"> <div class="ui medium fluid rounded image">  <svg width="150" height="150"> <image xlink:href=\"/uploads/'+rows[0].image[0]+'\" width="100%" height="100%"></image></svg></div>'+
 '    <div class="ui huge header"> Name: <span>'+rows[i].name +'</span> </div>'+
 '    <div class="ui huge header"> Age: <span>'+rows[i].age +'</span> </div>'+
 '    <div class="ui huge header"> Gender: <span>'+rows[i].gender +'</span> </div>'+
@@ -154,7 +218,12 @@ if(flag==1){ content  =content+ '<div class="four wide column"><div "ui card con
            
         function func1(){
             
-             
+               $('#minAge').val('default');
+        $('#maxAge').val('default');
+                $('#gender').val('default');
+                        $('#minHeight').val('default');
+                         $('#maxHeight').val('default');
+                                $('#ethnicity').val('default');
         $('#age').val('default');
                 $('#gender').val('default');
                         $('#height').val('default');

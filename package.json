@@ -154,6 +154,7 @@
     "mysql": "^2.17.1",
     "negotiator": "^0.6.2",
     "neo-async": "^2.6.1",
+    "nouislider": "^14.1.1",
     "oauth-sign": "^0.9.0",
     "object-assign": "^4.1.1",
     "object-component": "0.0.3",

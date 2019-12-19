@@ -36,6 +36,10 @@ var UserSchema=new mongoose.Schema({
    age:     { type: Number, min: 18, max: 65, required:true },
    ratings: { type: Number, min: 3, max: 5 },
    zipcode: {type:Number,   default: 62901},
+   address:{type:String,
+         default: ''
+   },
+   
    visited: {type:[String],default:''},
    isPremium: { type: Boolean, default: false },
    isGroomed: { type: Boolean, default: false },

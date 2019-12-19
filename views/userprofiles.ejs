@@ -1,214 +1,325 @@
-<% include partials/header2%>
+ <!DOCTYPE html>
+<html>
 
-
-<div>
-
-    
-    <header class="jumbotron">
-        <div class="ui container grid">
-    <div class="ten wide row">      
-    <h1>Welcome <span><%=currentuser.name%></span></h1>
-     <div class="container" style="margin:10px 10px 10px 20px">
-      <div>
-        <% if(currentuser.isPremium){ %>
-          <div class="ui container medium header red ">
-             <h2>
-             
-              </h2> 
-          </div>
-            
-        <% } %>
-        <% if(!currentuser.isPremium){ %>
-          <div class="ui container">
-               <a class="ui huge inverted red button" href="/payment" >
-             
-             Upgrade to Premium
-             </a>
-          </div>
-        <% } %>
-      
-    </div>
-       <div>
-        <% if(currentuser.isGroomed){ %>
-          <div class="ui container medium header red ">
-              
-              <!--Congrats you received training!!!-->
-              
-          </div>
-            
-        <% } %>
-        <% if(!currentuser.isGroomed){ %>
-          <div class="ui container">
-             <a class="ui huge inverted green button" href="/groom" style="margin:10px 10px 10px 20px">Get Groomed!</a>
-          </div>
-        <% } %>
-      
-    </div>
-            
+    <head>
+        <title>Elite Consorts</title>
         
-     </div>      
+     <!-- Latest compiled and minified CSS -->
+       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+          <link href="https://fonts.googleapis.com/css?family=Lato|Questrial&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!--<link rel="stylesheet" type="text/css" href="/stylesheet/landing.css">-->
+             <link href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap" rel="stylesheet">
+<!-- In <head> -->
+<link rel='stylesheet' href='https://cdn.rawgit.com/leongersen/noUiSlider/master/distribute/nouislider.min.css'>
+<link rel='stylesheet' href='https://cdn.rawgit.com/Dispute-Bills/wnumb/master/noui-pips.css'>
+    </head>
+<body style="font-family: 'Lato', sans-serif;">
     
-     </div>
-     </div> 
-     <div class="ui container six wide row">
+  <nav class="navbar navbar-default navbar-fixed-top" style=" background-color:	#FFFFFF;  min-height: 80px;  ">
+    
+    <div class="container-fluid">
+        <div class="navbar-header">
+              <a class="navbar-brand" style="font-family: 'Great Vibes', cursive; 
+              padding: 0 15px;
+  height: 80px;
+  line-height: 80px;font-size:30px; font-weight:900; color:black;" href="/"><span style="color:#F08080;">Elite </span><span>Consorts</span></a>
+        </div>
+   
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+            <li><a href="/cuser" style="font-size:20px; font-weight:900; color:black; 
+            padding: 0 15px;
+  height: 80px;
+  line-height: 80px;">
+               Profile
+            </a></li>
+            <li><a href="/logout" style="
+            padding: 0 15px;
+  height: 80px;
+  line-height: 80px;font-size:20px; font-weight:900; color:black;">
+              LogOut
+            </a></li>
+        </ul>
+        </div>
+    </div>
+</nav>
+
+
+  <div style="padding-bottom: 100px;">
+    
+    
+</div>
+
+  <div class="ui container six wide row">
        <div  style="margin:50px 50px 10px 20px">
+           
           <span class="ui medium header">
+            
             Filter by:
           </span>
-        <form action="/userprofiles/search" method="POST">
+ 
          
          
-            <select class="ui form-group dropdown" name="gender" placeholder="gender" type="text">
+            <select id="gender" class="ui form-group dropdown" name="gender" placeholder="gender" type="text">
               <option value="default">Gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
-                      <option value="Transgender">Post-Op Trans</option>
+            <option value="Transgender">Post-Op Trans</option>
                <option value="Transgender">Pre-Op Trans</option>
             </select>
      
   
      
-            <select class="ui form-group dropdown" name="ethnicity" placeholder="ethnicity" type="text">
+            <select id="ethnicity" class="ui form-group dropdown" name="ethnicity" placeholder="ethnicity" type="text">
               <option value="default">Ethnicity</option>
               <option value="Asian">Asian</option>
               <option value="Hispanic">Hispanic</option>
                <option value="Latina">Latina</option>
               <option value="Black">Black</option>
             </select>
-     
-          
-            <select class="ui form-group dropdown" name="age" placeholder="age" type="text">
-              <option value="default">Age</option>
-              <option value=21>Below 21</option>
-              <option value=30>Below 30</option>
-               <option value=35>Below 35</option>
-              <option value=40>Below 40</option>
-            </select>
-               <select class="ui form-group dropdown" name="height" placeholder="height" type="text">
-              <option value="default">Height</option>
-              <option value=160>Above 160cm</option>
-              <option value=165>Above 165cm</option>
-               <option value=170>Above 170cm</option>
-              <option value=180>Above 180cm</option>
-            </select>
-     
+           
+
+
+             <div class="ui container grid "
+             
+             style=" padding: 20px 0px;">
+                 
+                 <p >Age:</p>
+             <p id="slider" style="width:200px;"></p>
+              <p>Height:</p>
+               <p id="slider1" style="width:200px;"></p>
+           <p>Radius:</p>
+               
+              <p id="range" style="width:300px;"></p>  
+           
+                     </div>
+                     
         
-         <button class="ui huge inverted blue button">Apply/Refresh</button>
-         </form>
+        <div class="ui container grid "
+             
+             style=" padding: 20px 0px;">
+                 <p >MinAge:</p>
+                 <p id="minAge"></p>
+                 
+             <p >MaxAge:</p>
+                 <p id="maxAge"></p>
+              <p>MinHeight:</p>
+                  <p id="minHeight"></p>
+                   <p>MaxHeight:</p>
+                  <p id="maxHeight"></p>
+                        <p>Radius:</p>
+                  <p id="distance"></p>
+                  <p>Miles</p>
+                     </div>
+        
+         <button class="ui huge inverted blue button" onclick="func()">Apply</button>
+               <button class="ui huge inverted blue button" onclick="func1()">Refresh</button>
      </div>
-    </header>
-</div>
-<div  >
-  
-  <div >
-            <div class="ui grid" >
+     <div  class="ui grid" style=" padding: 20px 15px;">
+           <i class="green tags icon "></i> 
+           <p>Visited</p>
+         <i class="red star icon "></i> 
+           <p>Premium User</p>
+           <i class="blue star icon "></i> 
+           <p>Groomed User</p>
+     </div>
+ <div class="ui container grid" id="demo"></div>
                 
 
          
             
                   
-                <%users.forEach(function(user){%>
-            
-                <%if(currentuser.id!=user.id){ %>
-             
-               <%if((criteria.gender=="default"||criteria.gender==user.gender)&&(criteria.ethnicity=="default"||criteria.ethnicity==user.ethnicity)&&(criteria.age=="default"||criteria.age>=user.age)&&(criteria.height=="default"||criteria.height<=user.height)){%>
-                    <div class="four wide column">
-                         <div class="ui card container">
-                             <div class="ui medium fluid rounded image">
-                                 
-                                <svg width="150" height="150">
-                                <image xlink:href="/uploads/<%=user.image[0]%>"  width="100%" height="100%"></image>
-                                </svg>
-                                <div class="ui huge header">
-                                    Age: <span><%=user.age%></span> 
-                                    <div>
-                                    Ethnicity: <span><%=user.ethnicity%></span> 
-                                    </div>
-                                </div>
-                                </div>
-                                   <div>
-                               
-                                <% if(user.isPremium==true){ %>
-                               <i class="red star icon "></i>
-                                <% } %>
-                                 <% if(user.isGroomed==true){ %>
-                               <i class="blue star icon "></i>
-                                <% } %>
-                                    
-                                <% if(currentuser.visited.indexOf(user.id) > -1){ %>
-                               <i class="green tags icon "></i>
-                                <% } %>
-                                </div>
-                            <div class="ui container">
-                            <h3> <%=user.name%> </h3>
-                               </div>
-                               <div class="ui container">
-                             <p>
-                                <% if(currentuser.isPremium==true) {%>
-                                 <a href="/userprofiles/<%=user.id%>" class="btn btn-primary">Connect</a>
-                                 <% } %>
-                             </p>  
-                             </div>
-                        </div>
-                         
-                         </div>
-                            <% } %>
-                            
-                          <% } %>
-          
-                
-                            
-                     <% });%>
+           
 
-                
-            </div>
-  
-  
-  
-  </div>
-
-</div>
-
-
-</div>
-
-  
-    
-      <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+                    <% include partials/footer %>
+                  <script src='https://cdn.rawgit.com/Dispute-Bills/wnumb/master/wNumb.js'></script>
+<script src='https://cdn.rawgit.com/leongersen/noUiSlider/master/distribute/nouislider.min.js'></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpWecUYIcQPOSbNqqH3sI10xJaeOg0GMk&v=3.exp&sensor=false"></script>
+                <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
-  var name;
-  var age,gender,ethnicity,height;
+   var name;
+   var rows;
+   var currentuser;
+  var age,gender,ethnicity,minAge,maxAge,minHeight,maxHeight,height;
+  var slider = document.getElementById('slider');
+    var slider1 = document.getElementById('slider1');
+        var slider2 = document.getElementById('range');
+        function distance(lat1, lon1, lat2, lon2, unit) {
+	if ((lat1 == lat2) && (lon1 == lon2)) {
+		return 0;
+	}
+	else {
+		var radlat1 = Math.PI * lat1/180;
+		var radlat2 = Math.PI * lat2/180;
+		var theta = lon1-lon2;
+		var radtheta = Math.PI * theta/180;
+		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		if (dist > 1) {
+			dist = 1;
+		}
+		dist = Math.acos(dist);
+		dist = dist * 180/Math.PI;
+		dist = dist * 60 * 1.1515;
+		if (unit=="K") { dist = dist * 1.609344 }
+		if (unit=="N") { dist = dist * 0.8684 }
+		return dist;
+	}
+}
    $(function (){
-          name = JSON.parse($('#test').text());
-         
-      $.each(name, function(user) {
-        console.log(name)
+ noUiSlider.create(slider2, {
+    start: 0,
+    connect: true,
+    step: 1,
+    range: {
+        'min': 0,
+        'max': 2000
+    }
+});      
+noUiSlider.create(slider, {
+    start: [18,50],
+    connect: true,
+    step: 1,
+    range: {
+        'min': 18,
+        'max': 50
+    }
 });
+noUiSlider.create(slider1, {
+    start: [150,190],
+    connect: true,
+    step: 1,
+    range: {
+        'min': 150,
+        'max': 190
+    }
+});
+slider.noUiSlider.on('update', function(values, handle) {
+    var mstring=parseInt(values[0])+"yrs";
+    var mastring=parseInt(values[1])+"yrs";
+     $("#minAge").text(mstring);
+        $("#maxAge").text(mastring);
+        
+    console.log("first value:"+values[0]);// value for updated handle is in values[handle]
+    console.log("second value:"+values[1]);
+});
+slider1.noUiSlider.on('update', function(values, handle) {
+    var minstring=parseInt(values[0]/30)+"'"+parseInt((parseInt(values[0])-parseInt(parseInt(values[0]/30)*30))*0.39)+"\"";
+      var maxstring=parseInt(values[1]/30)+"'"+parseInt((parseInt(values[1])-parseInt(parseInt(values[1]/30)*30))*0.39)+"\"";
+     $("#minHeight").text(minstring);
+        $("#maxHeight").text(maxstring);
+        
+    console.log("first value:"+values[0]);// value for updated handle is in values[handle]
+    console.log("second value:"+values[1]);
+});
+slider2.noUiSlider.on('update', function(values, handle) {
+
+     $("#distance").text(values[0]);
+        
+   
+});
+ rows =<%-JSON.stringify(users)%>
+ currentuser=<%-JSON.stringify(currentuser)%>
+ //.log("currentuser:"+currentuser.name);
+    $('#minAge').val('default');
+        $('#maxAge').val('default');
+                $('#gender').val('default');
+                        $('#minHeight').val('default');
+                         $('#maxHeight').val('default');
+                                $('#ethnicity').val('default');
+ func();
+ // console.log(rows[0]);
+//  for ( var i = 0, l = rows.length; i < l; i++) {
+//     $.each(rows[i], function( index, value ) {
+//  console.log( index + ": " + value );
+// });
+// }
 
    });
+   
+   
 
         
         function func(){
             
-             
-    age=$('#age').val()
+            // console.log(slider.noUiSlider.get());
+         var ageui=   slider.noUiSlider.get();
+             var heightui=   slider1.noUiSlider.get();
+  minAge =ageui[0];
+  maxAge =ageui[1];
+  
+  minHeight =heightui[0];
+  maxHeight=heightui[1];
+    maxHeight =$('#maxHeight').val()
         gender=$('#gender').val()
          ethnicity=$('#ethnicity').val()
-         height=$('#height').val()
-
+    //     height=$('#height').val()
+          var content ="";
+   for ( var i = 0, l = rows.length; i < l; i++) {
+       var flag=0;
+    $.each(rows[i], function( index, value ) {
+       // console.log(rows[i].gender);
+    //   var distanceflag=0;
+    //   var addressa=currentuser.address;
+    //   var addressb=rows[i].address;
+    //   var geocoder = new google.maps.Geocoder();
+      if((rows[i]._id!=currentuser._id)&&((gender=="default"||rows[i].gender==gender)&&(ethnicity=="default"||rows[i].ethnicity==ethnicity)&&(rows[i].age>=minAge&&rows[i].age<=maxAge)&&(rows[i].height>=minHeight&&rows[i].height<=maxHeight)))
+ { 
+     flag=1;
      
+     
+     console.log( "flag one");
+     
+     
+ }
+
+});
+
+if(flag==1){   content  =content+ '<div class="four wide column"><div "ui card container"> <div class="ui medium fluid rounded image">  <svg width="150" height="150"> <image xlink:href=\"/uploads/'+rows[0].image[0]+'\" width="100%" height="100%"></image></svg></div>'+
+'    <div class="ui huge header"> Name: <span>'+rows[i].name +'</span> </div>'+
+'    <div class="ui huge header"> Age: <span>'+rows[i].age +'</span> </div>'+
+'    <div class="ui huge header"> Gender: <span>'+rows[i].gender +'</span> </div>'+
+'  <div class="ui huge header"> Ethnicity: <span>'+rows[i].ethnicity +'</span> </div></div>';
+  //'<a href="/userprofiles/'+rows[i]._id+'\" class="btn btn-primary">Connect</a>';
+   if(rows[i].isPremium==true)
+   {
+      content=content+ '<i class="red star icon "></i>';
+  }
+     if(rows[i].isGroomed==true)
+     {
+      content=content+ '<i class="blue star icon "></i>';
+  }
+     if(currentuser.visited.indexOf(rows[i]._id) > -1)
+     {
+                           content=content+   '<i class="green tags icon "></i>'
+     }
+  if(currentuser.isPremium==true){
+      content=content+'<div><a href="/userprofiles/'+rows[i]._id+'\" class="btn btn-primary">Connect</a></div>';
+  }
+  content=content+"</div>";
+  
+ $('#demo').html(content)}
+}
+
+            
+ //    console.log(gender)
             
             
         }
            
         function func1(){
             
-             
+               $('#minAge').val('default');
+        $('#maxAge').val('default');
+                $('#gender').val('default');
+                        $('#minHeight').val('default');
+                         $('#maxHeight').val('default');
+                                $('#ethnicity').val('default');
         $('#age').val('default');
                 $('#gender').val('default');
                         $('#height').val('default');
                                 $('#ethnicity').val('default');
-  
+ // console.log(gender)
     
                  
             func();
@@ -216,6 +327,8 @@
         }
 
         
-    </script>
-    
-      <% include partials/footer %>
+</script>
+  
+  
+  
+  

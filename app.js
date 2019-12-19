@@ -178,7 +178,7 @@ app.get("/cuser",ensureAuthenticated,(req,res)=>{
     
 });
 
-    // users.find({"name":req.body.name,"email":req.body.email,"password":req.body.password,"gender":req.body.gender,"bodytype":req.body.bodytype,"age":req.body.age,"ethnicity":req.body.ethnicity,"height":req.body.height,"zipcode":req.body.zipcode},function(err,obj) { 
+    // users.find({"name":req.body.name,"email":req.body.email,"password":req.body.password,"gender":req.body.gender,"bodytype":req.body.bodytype,"age":req.body.age,"ethnicity":req.body.ethnicity,"height":req.body.height,"address":req.body.address},function(err,obj) { 
     //     console.log("found")
     //     console.log(obj); });
     
@@ -319,8 +319,9 @@ app.post("/newpassword",(req,res)=>
    var gender=req.body.gender;
    var ethnicity=req.body.ethnicity;
    var height=req.body.height;
-   var zipcode=req.body.zipcode;
+   var address=req.body.address;
     var bodytype=req.body.bodytype;
+    
    var errors=[];
  //console.log(req.body);
    if(!name||!email||!password||!password2)
@@ -350,7 +351,7 @@ app.post("/newpassword",(req,res)=>
     else{//console.log(req.body);
     users.find( {
     $and : [
-          { name : name }, { email: email },{age:age },{gender:gender},{ethnicity:ethnicity},{height:height},{zipcode:zipcode},{bodytype:bodytype}] },(err,found)=>{
+          { name : name }, { email: email },{age:age },{gender:gender},{ethnicity:ethnicity},{height:height},{address:address},{bodytype:bodytype}] },(err,found)=>{
               if(err) throw err;
               else{
                   var newpassword;
@@ -474,7 +475,7 @@ app.post("/newreg",function(req,res){
      console.log(inch*2.54);
    var height=inch*2.54;
    console.log(height);
-   var zipcode=req.body.zipcode;
+   var address=req.body.address;
     var bodytype=req.body.bodytype;
    var errors=[];
 //while(1)
@@ -519,7 +520,7 @@ app.post("/newreg",function(req,res){
       else{//res.redirect("/userprofiles");
          
          
-         var newUser =new users({name:name,email:email,password:password,image:image,gender:gender,bodytype:bodytype,age:age,ethnicity:ethnicity,height:height,zipcode:zipcode});
+         var newUser =new users({name:name,email:email,password:password,image:image,gender:gender,bodytype:bodytype,age:age,ethnicity:ethnicity,height:height,address:address});
          //Hash password
          bcrypt.genSalt(10,(err,salt)=>
          bcrypt.hash(newUser.password,salt,(err,hash)=>
@@ -579,7 +580,7 @@ app.post("/newprem",function(req,res){
      console.log(inch)
      console.log(inch*2.54);
    var height=inch*2.54;
-   var zipcode=req.body.zipcode;
+   var address=req.body.address;
     var bodytype=req.body.bodytype;
     var payment=true;
    var errors=[];
@@ -625,7 +626,7 @@ app.post("/newprem",function(req,res){
       else{//res.redirect("/userprofiles");
          
          
-         var newUser =new users({name:name,email:email,password:password,image:image,gender:gender,bodytype:bodytype,age:age,ethnicity:ethnicity,height:height,zipcode:zipcode,isPremium:true});
+         var newUser =new users({name:name,email:email,password:password,image:image,gender:gender,bodytype:bodytype,age:age,ethnicity:ethnicity,height:height,address:address,isPremium:true});
          //Hash password
          bcrypt.genSalt(10,(err,salt)=>
          bcrypt.hash(newUser.password,salt,(err,hash)=>

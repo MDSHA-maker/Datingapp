@@ -1,0 +1,10 @@
+body {
+  background-image: url('landing.png');
+  background-repeat: no-repeat;
+
+  background-size: cover;
+}
+navbar{
+    backface-color:#000;
+    
+}
