@@ -129,43 +129,25 @@
 
          
             
-                  
+              <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAO8PIxytn7KB9RaIjZY5W9IHXWws9q4NE" async defer></script>     
            
 
-                    <% include partials/footer %>
-                  <script src='https://cdn.rawgit.com/Dispute-Bills/wnumb/master/wNumb.js'></script>
+  <script src='https://cdn.rawgit.com/Dispute-Bills/wnumb/master/wNumb.js'></script>
+
+               
 <script src='https://cdn.rawgit.com/leongersen/noUiSlider/master/distribute/nouislider.min.js'></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpWecUYIcQPOSbNqqH3sI10xJaeOg0GMk&v=3.exp&sensor=false"></script>
+
                 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
   <script>
    var name;
    var rows;
    var currentuser;
+     var distanceradii=5000;
   var age,gender,ethnicity,minAge,maxAge,minHeight,maxHeight,height;
   var slider = document.getElementById('slider');
     var slider1 = document.getElementById('slider1');
         var slider2 = document.getElementById('range');
-        function distance(lat1, lon1, lat2, lon2, unit) {
-	if ((lat1 == lat2) && (lon1 == lon2)) {
-		return 0;
-	}
-	else {
-		var radlat1 = Math.PI * lat1/180;
-		var radlat2 = Math.PI * lat2/180;
-		var theta = lon1-lon2;
-		var radtheta = Math.PI * theta/180;
-		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-		if (dist > 1) {
-			dist = 1;
-		}
-		dist = Math.acos(dist);
-		dist = dist * 180/Math.PI;
-		dist = dist * 60 * 1.1515;
-		if (unit=="K") { dist = dist * 1.609344 }
-		if (unit=="N") { dist = dist * 0.8684 }
-		return dist;
-	}
-}
+
    $(function (){
  noUiSlider.create(slider2, {
     start: 0,
@@ -245,14 +227,16 @@ slider2.noUiSlider.on('update', function(values, handle) {
             // console.log(slider.noUiSlider.get());
          var ageui=   slider.noUiSlider.get();
              var heightui=   slider1.noUiSlider.get();
+             var radius=slider2.noUiSlider.get();
   minAge =ageui[0];
   maxAge =ageui[1];
   
   minHeight =heightui[0];
   maxHeight=heightui[1];
-    maxHeight =$('#maxHeight').val()
+ //   maxHeight =$('#maxHeight').val()
         gender=$('#gender').val()
          ethnicity=$('#ethnicity').val()
+        radiusi=radius[0];
     //     height=$('#height').val()
           var content ="";
    for ( var i = 0, l = rows.length; i < l; i++) {
@@ -263,6 +247,8 @@ slider2.noUiSlider.on('update', function(values, handle) {
     //   var addressa=currentuser.address;
     //   var addressb=rows[i].address;
     //   var geocoder = new google.maps.Geocoder();
+   
+    calculateDistances(rows[i].address,currentuser.address);
       if((rows[i]._id!=currentuser._id)&&((gender=="default"||rows[i].gender==gender)&&(ethnicity=="default"||rows[i].ethnicity==ethnicity)&&(rows[i].age>=minAge&&rows[i].age<=maxAge)&&(rows[i].height>=minHeight&&rows[i].height<=maxHeight)))
  { 
      flag=1;
@@ -281,6 +267,7 @@ if(flag==1){   content  =content+ '<div class="four wide column"><div "ui card c
 '    <div class="ui huge header"> Gender: <span>'+rows[i].gender +'</span> </div>'+
 '  <div class="ui huge header"> Ethnicity: <span>'+rows[i].ethnicity +'</span> </div></div>';
   //'<a href="/userprofiles/'+rows[i]._id+'\" class="btn btn-primary">Connect</a>';
+ 
    if(rows[i].isPremium==true)
    {
       content=content+ '<i class="red star icon "></i>';
@@ -308,7 +295,7 @@ if(flag==1){   content  =content+ '<div class="four wide column"><div "ui card c
         }
            
         function func1(){
-            
+            $("#distance").val(0);
                $('#minAge').val('default');
         $('#maxAge').val('default');
                 $('#gender').val('default');
@@ -325,9 +312,62 @@ if(flag==1){   content  =content+ '<div class="four wide column"><div "ui card c
             func();
             
         }
+        function calculateDistances(origin, destination)
+{
+    // origin = origin;
+    //  destination= destination;
+//   origin = document.getElementById('source').value; //Get the source string
+//   destination = document.getElementById('dest').value; //Get the destination string
+console.log(origin+destination);
+ if(origin==undefined){
+        rows[i].address="62901";
+        
+    }
+     if(destination==undefined){
+        rows[i].address="62904";
+        
+    }
+  var service = new google.maps.DistanceMatrixService(); //initialize the distance service
+  service.getDistanceMatrix(
+    {
+      origins: [origin], //set origin, you can specify multiple sources here
+      destinations: [destination],//set destination, you can specify multiple destinations here
+      travelMode: google.maps.TravelMode.DRIVING, //set the travelmode
+      unitSystem: google.maps.UnitSystem.METRIC,//The unit system to use when displaying distance
+      avoidHighways: false,
+      avoidTolls: false
+    }, calcDistance,2000); // here calcDistance is the call back function
+}
+
+
+function calcDistance(response, status) {
+  
+  if (status != google.maps.DistanceMatrixStatus.OK) { // check if there is valid result
+    console.log('Error was: ' + status);
+  } else {
+    var origins = response.originAddresses;
+    var destinations = response.destinationAddresses;
+   // deleteOverlays();47
+
+
+    for (var i = 0; i < origins.length; i++) {
+      var results = response.rows[i].elements;
+
+      for (var j = 0; j < results.length; j++) {
+        distanceradii=results[j].distance.text;
+         console.log('Distance from '+origins[i] + ' to ' + destinations[j]
+             + ': ' + results[j].distance.text ); // console.log the result
+      }
+    }
+    
+  }
+ 
+}
 
         
 </script>
+ 
+</body>
   
   
   

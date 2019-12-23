@@ -198,15 +198,9 @@
               (place.address_components[1] && place.address_components[1].short_name || ''),
               (place.address_components[2] && place.address_components[2].short_name || '')
             ].join(' ');
-            
-          }
-          if(place.geometry){
-              var a=place.geometry.location.lat
-              console.log(a)
-              
           }
 
-          
+  
         });
 
         // Sets a listener on a radio button to change the filter type on Places
