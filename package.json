@@ -144,7 +144,7 @@
     "mockconsole": "0.0.1",
     "mongodb": "^3.3.4",
     "mongodb-uri": "^0.9.7",
-    "mongoose": "^5.7.10",
+    "mongoose": "^5.7.11",
     "mongoose-legacy-pluralize": "^1.0.2",
     "mpath": "^0.6.0",
     "mquery": "^3.2.2",
