@@ -139,7 +139,7 @@
     "mime": "^2.4.4",
     "mime-db": "^1.42.0",
     "mime-types": "^2.1.25",
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.3",
     "mkdirp": "^0.5.1",
     "mockconsole": "0.0.1",
     "mongodb": "^3.3.4",
