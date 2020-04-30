@@ -120,7 +120,7 @@
     "is-typedarray": "^1.0.0",
     "isarray": "^2.0.5",
     "isstream": "^0.1.2",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jsbn": "^1.1.0",
     "json-schema": "^0.2.5",
     "json-schema-traverse": "^0.4.1",
