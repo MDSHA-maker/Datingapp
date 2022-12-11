@@ -84,7 +84,7 @@
     "engine.io-parser": "^2.2.0",
     "escape-html": "^1.0.3",
     "etag": "^1.8.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-session": "^1.17.0",
     "extend": "^3.0.2",
     "extsprintf": "^1.4.0",
